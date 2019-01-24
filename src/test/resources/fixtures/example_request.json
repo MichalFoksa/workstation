@@ -1,0 +1,36 @@
+{
+    "parameters": [],
+    "nextStations": [
+        {
+            "stationUrl": "bodyshop",
+            "parameters": [
+                {
+                    "name": "bodyType",
+                    "value": "sedan"
+                }
+            ]
+        },
+        {
+            "stationUrl": "paintshop",
+            "parameters": [
+                {
+                    "name": "color",
+                    "value": "blue"
+                }
+            ]
+        },
+        {
+            "stationUrl": "powertrain",
+            "parameters": [
+                {
+                    "name": "engine",
+                    "value": "V8"
+                },
+                {
+                    "name": "transmission",
+                    "value": "automatic"
+                }
+            ]
+        }
+    ]
+}

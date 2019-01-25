@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import net.michalfoksa.workshop.station.domain.WorkOrder;
 import net.michalfoksa.workshop.station.domain.Workstation;
+import net.michalfoksa.workshop.station.http.feign.WorkstationClient;
 
 @Controller
 @RequestMapping(path = "/works")

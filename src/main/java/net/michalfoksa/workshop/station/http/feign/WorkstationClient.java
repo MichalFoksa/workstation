@@ -1,4 +1,4 @@
-package net.michalfoksa.workshop.station.http;
+package net.michalfoksa.workshop.station.http.feign;
 
 import java.net.URI;
 import java.util.List;

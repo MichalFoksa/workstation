@@ -2,7 +2,8 @@
     "parameters": [],
     "nextStations": [
         {
-            "stationUrl": "bodyshop",
+            "name": "bodyshop",
+            "url": "http://localhost:10081/works",
             "parameters": [
                 {
                     "name": "bodyType",
@@ -11,7 +12,8 @@
             ]
         },
         {
-            "stationUrl": "paintshop",
+            "name": "paintshop",
+            "url": "http://localhost:10081",
             "parameters": [
                 {
                     "name": "color",
@@ -20,7 +22,8 @@
             ]
         },
         {
-            "stationUrl": "powertrain",
+            "name": "powertrain",
+            "url": "http://localhost:10081",
             "parameters": [
                 {
                     "name": "engine",

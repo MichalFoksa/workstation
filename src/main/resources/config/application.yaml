@@ -16,7 +16,10 @@ management:
         include: '*'
 
 # Log levels
+logging.level: INFO
 logging.level.org.springframework: INFO
+# logging.level.org.springframework.web: DEBUG
+logging.level.org.springframework.web.servlet.DispatcherServlet: DEBUG
 logging.level.org.apache: WARN
 logging.level.org.apache.tomcat: INFO
 logging.level.org.hibernate: INFO

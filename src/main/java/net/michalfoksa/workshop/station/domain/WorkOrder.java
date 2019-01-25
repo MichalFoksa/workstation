@@ -6,7 +6,7 @@ import java.util.List;
 public class WorkOrder {
 
     private List<KeyVal> parameters = new ArrayList<>();
-    private List<Work> nextStations = new ArrayList<>();
+    private List<Workstation> nextStations = new ArrayList<>();
 
     public List<KeyVal> getParameters() {
         return parameters;
@@ -16,12 +16,22 @@ public class WorkOrder {
         this.parameters = parameters;
     }
 
-    public List<Work> getNextStations() {
+    public WorkOrder parameters(List<KeyVal> parameters) {
+        this.parameters = parameters;
+        return this;
+    }
+
+    public List<Workstation> getNextStations() {
         return nextStations;
     }
 
-    public void setNextStations(List<Work> nextStations) {
+    public void setNextStations(List<Workstation> nextStations) {
         this.nextStations = nextStations;
+    }
+
+    public WorkOrder nextStations(List<Workstation> nextStations) {
+        this.nextStations = nextStations;
+        return this;
     }
 
     @Override

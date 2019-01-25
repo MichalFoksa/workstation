@@ -1,9 +1,35 @@
-apiVersion: skaffold/v1beta2
+# Build failed, received an error: 
+#   time="2019-01-25T16:38:39Z" level=fatal msg="creating runner: parsing skaffold config: unknown api version: 'skaffold/v1beta2'"
+# 
+# + skaffold version
+# v0.19.0
+# [Pipeline] sh
+# ++ cat VERSION
+# + export VERSION=0.0.2
+# + VERSION=0.0.2
+# + skaffold build -f skaffold.yaml
+# time="2019-01-25T16:38:39Z" level=fatal msg="creating runner: parsing skaffold config: unknown api version: 'skaffold/v1beta2'"
+#
+# apiVersion: skaffold/v1beta2
+
+# Testing with previous api version: skaffold/v1alpha2
+apiVersion: skaffold/v1alpha2
+
 kind: Config
 build:
   artifacts:
-  - image: changeme
-    context: .
+  # level=fatal msg=creating runner: parsing skaffold config: unable to parse config: yaml: unmarshal errors:
+  # line 21: field image not found in type v1alpha2.Artifact
+  # line 22: field context not found in type v1alpha2.Artifact  
+  # - image: changeme
+
+  # API skaffold/v1alpha2 requires `imageName` instead of just `image`
+  - imageName: changeme
+
+    # API skaffold/v1alpha2 requires `workspace` instead of just `context`
+    # context: .
+    workspace: .
+
     docker: {}
   tagPolicy:
     envTemplate:

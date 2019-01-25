@@ -1,5 +1,5 @@
 {
-    "name": "orderfulfillment",
+    "workstationName": "orderfulfillment",
     "parameters": {},
     "nextStations": [
         {
@@ -13,7 +13,8 @@
             "name": "paintshop",
             "url": "http://localhost:10081",
             "parameters": {
-                "color": "blue"
+                "color": "blue",
+                "strips": true
             }
         },
         {

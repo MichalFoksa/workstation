@@ -3,6 +3,7 @@ package net.michalfoksa.workshop.station.http;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
@@ -22,7 +23,7 @@ import net.michalfoksa.workshop.station.domain.WorkOrder;
 import net.michalfoksa.workshop.station.domain.Workstation;
 
 @Controller
-@RequestMapping(path="/works")
+@RequestMapping(path = "/works")
 public class WorkController {
 
     private final Logger log = LoggerFactory.getLogger(WorkController.class);
@@ -37,33 +38,50 @@ public class WorkController {
     private WorkstationClient workstationClient;
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public @ResponseBody List<Workstation> newWork (@RequestBody WorkOrder request) {
+    public @ResponseBody List<Workstation> newWork(@RequestBody WorkOrder request) {
         log.debug("Request [request={}]", request);
 
-        List<Workstation> nextWSResponse = new ArrayList<>();
-        // TODO rework to stream()..collect(Collectors.toList());
-        request.getNextStations().forEach(station -> {
-            log.info("Next station [stationUrl={}]" , station.getUrl());
-            nextWSResponse.addAll(workstationClient.orderWork(uriResolver.getUri(station) ,
-                    new WorkOrder().workstationName(station.getName()).parameters(station.getParameters())));
-        });
+        List<Workstation> response = new ArrayList<>();
 
-        nextWSResponse.add(
-                new Workstation().name(request.getWorkstationName()).parameters(request.getParameters()));
-        return nextWSResponse;
+        if (request.getNextStations().size() > 0) {
+            Workstation nextStation = request.getNextStations().get(0);
+            log.info("Next station [name={}]", nextStation.getName());
+
+            // Create list of workstations following after next one.
+            // Remove next workstation form list all following workstations
+            List<Workstation> nextStations = request.getNextStations().stream()
+                    .filter(station -> !nextStation.equals(station))
+                    .collect(Collectors.toList());
+
+            // Call next workstation
+            response.addAll(workstationClient.orderWork(uriResolver.getUri(nextStation),
+                    new WorkOrder()
+                    .workstationName(nextStation.getName())
+                    .parameters(nextStation.getParameters())
+                    .nextStations(nextStations)));
+        }
+
+        // Add response of current workstation at beginning of the response
+        // array.
+        response.add(0, new Workstation()
+                .name(request.getWorkstationName() + " appName: " + appName)
+                .parameters(request.getParameters()));
+
+        return response;
     }
 
     @Service
     public class UriResolver {
 
         /***
-         * Create next workstation URI from workstation name, or from workstation URL string if provided.
+         * Create next workstation URI from workstation name, or from
+         * workstation URL string if provided.
          *
          * @param workstation
          * @return workstation URI
          */
         public URI getUri(Workstation workstation) {
-            if ( StringUtils.isEmpty(workstation.getUrl()) ) {
+            if (StringUtils.isEmpty(workstation.getUrl())) {
                 return URI.create("http://" + workstation.getName());
             }
             return URI.create(workstation.getUrl());

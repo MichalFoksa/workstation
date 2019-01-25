@@ -45,11 +45,11 @@ public class WorkController {
         request.getNextStations().forEach(station -> {
             log.info("Next station [stationUrl={}]" , station.getUrl());
             nextWSResponse.addAll(workstationClient.orderWork(uriResolver.getUri(station) ,
-                    new WorkOrder().parameters(station.getParameters())));
+                    new WorkOrder().workstationName(station.getName()).parameters(station.getParameters())));
         });
 
         nextWSResponse.add(
-                new Workstation().name(appName).parameters(request.getParameters()));
+                new Workstation().name(request.getWorkstationName()).parameters(request.getParameters()));
         return nextWSResponse;
     }
 

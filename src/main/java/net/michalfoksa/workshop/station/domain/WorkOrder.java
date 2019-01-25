@@ -1,22 +1,37 @@
 package net.michalfoksa.workshop.station.domain;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class WorkOrder {
 
-    private List<KeyVal> parameters = new ArrayList<>();
+    private String workstationName;
+    private HashMap<String, String> parameters = new HashMap<>();
     private List<Workstation> nextStations = new ArrayList<>();
 
-    public List<KeyVal> getParameters() {
+    public String getWorkstationName() {
+        return workstationName;
+    }
+
+    public void setWorkstationName(String workstationName) {
+        this.workstationName = workstationName;
+    }
+
+    public WorkOrder workstationName(String workstationName) {
+        this.workstationName = workstationName;
+        return this;
+    }
+
+    public HashMap<String, String> getParameters() {
         return parameters;
     }
 
-    public void setParameters(List<KeyVal> parameters) {
+    public void setParameters(HashMap<String, String> parameters) {
         this.parameters = parameters;
     }
 
-    public WorkOrder parameters(List<KeyVal> parameters) {
+    public WorkOrder parameters(HashMap<String, String> parameters) {
         this.parameters = parameters;
         return this;
     }
@@ -36,7 +51,8 @@ public class WorkOrder {
 
     @Override
     public String toString() {
-        return "WorkOrder [parameters=" + parameters + ", nextStations=" + nextStations + "]";
+        return "WorkOrder [workstationName=" + workstationName + ", parameters=" + parameters + ", nextStations="
+                + nextStations + "]";
     }
 
 }

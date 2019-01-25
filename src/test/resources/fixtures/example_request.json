@@ -1,39 +1,28 @@
 {
-    "parameters": [],
+    "name": "orderfulfillment",
+    "parameters": {},
     "nextStations": [
         {
             "name": "bodyshop",
-            "url": "http://localhost:10081/works",
-            "parameters": [
-                {
-                    "name": "bodyType",
-                    "value": "sedan"
-                }
-            ]
+            "url": "http://localhost:10081",
+            "parameters": {
+                "bodyType": "sedan"
+            }
         },
         {
             "name": "paintshop",
             "url": "http://localhost:10081",
-            "parameters": [
-                {
-                    "name": "color",
-                    "value": "blue"
-                }
-            ]
+            "parameters": {
+                "color": "blue"
+            }
         },
         {
             "name": "powertrain",
             "url": "http://localhost:10081",
-            "parameters": [
-                {
-                    "name": "engine",
-                    "value": "V8"
-                },
-                {
-                    "name": "transmission",
-                    "value": "automatic"
-                }
-            ]
+            "parameters": {
+                "engine": "V8",
+                "transmission": "automatic"
+            }
         }
     ]
 }

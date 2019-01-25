@@ -1,7 +1,6 @@
 package net.michalfoksa.workshop.station.domain;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -9,9 +8,10 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @JsonInclude(Include.NON_NULL)
 public class Workstation {
 
+
     private String name;
     private String url;
-    private List<KeyVal> parameters = new ArrayList<>();
+    private HashMap<String, String> parameters = new HashMap<>();
 
     public String getName() {
         return name;
@@ -34,15 +34,15 @@ public class Workstation {
         this.url = url;
     }
 
-    public List<KeyVal> getParameters() {
+    public HashMap<String, String> getParameters() {
         return parameters;
     }
 
-    public void setParameters(List<KeyVal> parameters) {
+    public void setParameters(HashMap<String, String> parameters) {
         this.parameters = parameters;
     }
 
-    public Workstation parameters(List<KeyVal> parameters) {
+    public Workstation parameters(HashMap<String, String> parameters) {
         this.parameters = parameters;
         return this;
     }

@@ -1,4 +1,4 @@
-package net.michalfoksa.workshop.station.http;
+package net.michalfoksa.workshop.workstation.http;
 
 import java.net.URI;
 import java.util.ArrayList;
@@ -19,9 +19,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import net.michalfoksa.workshop.station.domain.WorkOrder;
-import net.michalfoksa.workshop.station.domain.Workstation;
-import net.michalfoksa.workshop.station.http.feign.WorkstationClient;
+import net.michalfoksa.workshop.workstation.domain.WorkOrder;
+import net.michalfoksa.workshop.workstation.domain.Workstation;
+import net.michalfoksa.workshop.workstation.http.feign.WorkstationClient;
 
 @Controller
 @RequestMapping(path = "/works")

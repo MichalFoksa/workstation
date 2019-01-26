@@ -1,4 +1,4 @@
-package net.michalfoksa.workshop.station;
+package net.michalfoksa.workshop.workstation;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

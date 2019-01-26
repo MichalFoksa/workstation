@@ -39,6 +39,12 @@ spec:
           successThreshold: {{ .Values.readinessProbe.successThreshold }}
           timeoutSeconds: {{ .Values.readinessProbe.timeoutSeconds }}
         env:
+        - name: SPRING_APPLICATION_NAME
+        {{- if .Values.service.name }}
+          value: {{ .Values.service.name }}
+        {{- else }}
+          value: {{ template "fullname" . }}
+        {{- end }}
         - name: NODE_NAME
           valueFrom:
             fieldRef:

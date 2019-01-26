@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import net.michalfoksa.workshop.workstation.context.CallContext;
+import net.michalfoksa.workshop.workstation.context.RuntimeContext;
 import net.michalfoksa.workshop.workstation.domain.WorkOrder;
 import net.michalfoksa.workshop.workstation.domain.Workstation;
 import net.michalfoksa.workshop.workstation.http.feign.WorkstationClient;
@@ -38,9 +40,18 @@ public class WorkController {
     @Inject
     private WorkstationClient workstationClient;
 
+    @Inject
+    private CallContext callContext;
+
+    @Inject
+    private RuntimeContext runtimeContext;
+
     @PostMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public @ResponseBody List<Workstation> newWork(@RequestBody WorkOrder request) {
         log.debug("Request [request={}]", request);
+
+        log.debug("Call context [callContext={}]", callContext);
+        log.debug("Runtime context  [runtimeContext={}]", runtimeContext);
 
         List<Workstation> response = new ArrayList<>();
 

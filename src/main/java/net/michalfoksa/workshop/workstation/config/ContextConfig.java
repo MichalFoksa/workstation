@@ -4,6 +4,8 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,6 +20,8 @@ import net.michalfoksa.workshop.workstation.context.RuntimeContext;
 @Configuration
 public class ContextConfig {
 
+    private final Logger log = LoggerFactory.getLogger(ContextConfig.class);
+
     // Exposes current request to the current thread
     @Bean
     public RequestContextListener requestContextListener(){
@@ -27,9 +31,11 @@ public class ContextConfig {
     @Bean
     @RequestScope
     public CallContext callContext(HttpServletRequest request) {
-        return new CallContextImpl()
+        CallContext callContext = new CallContextImpl()
                 .correlationId(request.getHeader("x-correlation-id") != null ? request.getHeader("x-correlation-id")
                         : UUID.randomUUID().toString());
+        log.debug("Call context [callContext={}]", callContext);
+        return callContext;
     }
 
     @Value("${spring.cloud.client.hostname}")
@@ -57,6 +63,9 @@ public class ContextConfig {
         rt.setIp(podIp != null ? podIp : ipAddress);
         rt.setNodeName(nodeName);
         rt.setNamespace(namespace);
+
+        log.debug("Runtime context [runtimeContext={}]", rt);
+
         return rt;
     }
 

@@ -1,4 +1,4 @@
-package net.michalfoksa.workshop.station.http;
+package net.michalfoksa.workshop.workstation.http;
 
 import java.net.URI;
 import java.util.ArrayList;
@@ -11,19 +11,19 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
-import net.michalfoksa.workshop.station.domain.WorkOrder;
-import net.michalfoksa.workshop.station.domain.Workstation;
-import net.michalfoksa.workshop.station.http.feign.WorkstationClient;
+import net.michalfoksa.workshop.workstation.api.WorkstationApi;
+import net.michalfoksa.workshop.workstation.domain.GenericResponse;
+import net.michalfoksa.workshop.workstation.domain.WorkOrder;
+import net.michalfoksa.workshop.workstation.domain.Workstation;
 
-@Controller
+@RestController
 @RequestMapping(path = "/works")
 public class WorkController {
 
@@ -36,13 +36,17 @@ public class WorkController {
     private UriResolver uriResolver;
 
     @Inject
-    private WorkstationClient workstationClient;
+    private WorkstationApi workstationApi;
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public @ResponseBody List<Workstation> newWork(@RequestBody WorkOrder request) {
+    public List<GenericResponse<Workstation>> newWork(@RequestBody WorkOrder request) {
         log.debug("Request [request={}]", request);
 
-        List<Workstation> response = new ArrayList<>();
+        List<GenericResponse<Workstation>> response = new ArrayList<>();
+        // Add response of current workstation at beginning of the all responses
+        // array.
+        response.add(new GenericResponse<Workstation>().body(new Workstation()
+                .name(request.getWorkstationName() + " appName: " + appName).parameters(request.getParameters())));
 
         if (request.getNextStations().size() > 0) {
             Workstation nextStation = request.getNextStations().get(0);
@@ -55,18 +59,12 @@ public class WorkController {
                     .collect(Collectors.toList());
 
             // Call next workstation
-            response.addAll(workstationClient.orderWork(uriResolver.getUri(nextStation),
+            response.addAll(workstationApi.orderWork(uriResolver.getUri(nextStation),
                     new WorkOrder()
                     .workstationName(nextStation.getName())
                     .parameters(nextStation.getParameters())
                     .nextStations(nextStations)));
         }
-
-        // Add response of current workstation at beginning of the response
-        // array.
-        response.add(0, new Workstation()
-                .name(request.getWorkstationName() + " appName: " + appName)
-                .parameters(request.getParameters()));
 
         return response;
     }

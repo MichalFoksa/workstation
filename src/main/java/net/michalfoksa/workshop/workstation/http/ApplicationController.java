@@ -1,4 +1,4 @@
-package net.michalfoksa.workshop.station.http;
+package net.michalfoksa.workshop.workstation.http;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;

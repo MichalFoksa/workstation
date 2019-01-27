@@ -7,6 +7,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import net.michalfoksa.workshop.workstation.domain.GenericResponse;
 import net.michalfoksa.workshop.workstation.domain.WorkOrder;
 import net.michalfoksa.workshop.workstation.domain.Workstation;
 
@@ -14,6 +15,6 @@ import net.michalfoksa.workshop.workstation.domain.Workstation;
 public interface WorkstationClient {
 
     @PostMapping(path = "/works")
-    List<Workstation> orderWork(URI workstationUrl, @RequestBody WorkOrder workOrder);
+    List<GenericResponse<Workstation>> orderWork(URI workstationUrl, @RequestBody WorkOrder workOrder);
 }
 

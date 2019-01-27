@@ -7,10 +7,20 @@ import java.util.stream.Collectors;
 
 public class KubernetesRuntimeContext implements RuntimeContext {
 
+    private String applicationName;
     private String podIp;
     private String podName;
     private String namespace;
     private String nodeName;
+
+    @Override
+    public String getApplicationName() {
+        return applicationName;
+    }
+
+    public void setApplicationName(String applicationName) {
+        this.applicationName = applicationName;
+    }
 
     @Override
     public String getIp() {
@@ -76,8 +86,8 @@ public class KubernetesRuntimeContext implements RuntimeContext {
 
     @Override
     public String toString() {
-        return "KubernetesRuntimeContext [podIp=" + podIp + ", podName=" + podName + ", namespace=" + namespace
-                + ", nodeName=" + nodeName + "]";
+        return "KubernetesRuntimeContext [applicationName=" + applicationName + ", podIp=" + podIp + ", podName="
+                + podName + ", namespace=" + namespace + ", nodeName=" + nodeName + "]";
     }
 
 }

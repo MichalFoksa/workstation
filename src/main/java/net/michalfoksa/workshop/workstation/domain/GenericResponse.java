@@ -2,6 +2,8 @@ package net.michalfoksa.workshop.workstation.domain;
 
 import java.util.Map;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
@@ -15,6 +17,7 @@ import net.michalfoksa.workshop.workstation.context.CallContextImpl;
  *
  * @param <T>
  */
+@JsonInclude(Include.NON_NULL)
 public class GenericResponse<T> {
 
     private T body;

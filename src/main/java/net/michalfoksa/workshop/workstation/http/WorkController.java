@@ -18,10 +18,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import net.michalfoksa.workshop.workstation.api.WorkstationApi;
 import net.michalfoksa.workshop.workstation.domain.GenericResponse;
 import net.michalfoksa.workshop.workstation.domain.WorkOrder;
 import net.michalfoksa.workshop.workstation.domain.Workstation;
-import net.michalfoksa.workshop.workstation.http.feign.WorkstationClient;
 
 @RestController
 @RequestMapping(path = "/works")
@@ -36,7 +36,7 @@ public class WorkController {
     private UriResolver uriResolver;
 
     @Inject
-    private WorkstationClient workstationClient;
+    private WorkstationApi workstationApi;
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public List<GenericResponse<Workstation>> newWork(@RequestBody WorkOrder request) {
@@ -59,7 +59,7 @@ public class WorkController {
                     .collect(Collectors.toList());
 
             // Call next workstation
-            response.addAll(workstationClient.orderWork(uriResolver.getUri(nextStation),
+            response.addAll(workstationApi.orderWork(uriResolver.getUri(nextStation),
                     new WorkOrder()
                     .workstationName(nextStation.getName())
                     .parameters(nextStation.getParameters())

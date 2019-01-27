@@ -4,8 +4,10 @@ import java.net.URI;
 import java.util.List;
 
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 
 import net.michalfoksa.workshop.workstation.domain.GenericResponse;
 import net.michalfoksa.workshop.workstation.domain.WorkOrder;
@@ -15,6 +17,8 @@ import net.michalfoksa.workshop.workstation.domain.Workstation;
 public interface WorkstationClient {
 
     @PostMapping(path = "/works")
-    List<GenericResponse<Workstation>> orderWork(URI workstationUrl, @RequestBody WorkOrder workOrder);
+    List<GenericResponse<Workstation>> orderWork(URI workstationUri, @RequestHeader HttpHeaders headers,
+            @RequestBody WorkOrder workOrder);
+
 }
 

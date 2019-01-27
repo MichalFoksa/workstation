@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 public class KubernetesRuntimeContext implements RuntimeContext {
 
     private String podIp;
-    private String podname;
+    private String podName;
     private String namespace;
     private String nodeName;
 
@@ -23,11 +23,11 @@ public class KubernetesRuntimeContext implements RuntimeContext {
 
     @Override
     public String getHostname() {
-        return podname;
+        return podName;
     }
 
     public void setHostname(String hostname) {
-        this.podname = hostname;
+        this.podName = hostname;
     }
 
     public String getNamespace() {
@@ -50,7 +50,18 @@ public class KubernetesRuntimeContext implements RuntimeContext {
     @Override
     public Map<String, Object> getAllFieldsMap() {
         return Arrays.stream(KubernetesRuntimeContext.class.getDeclaredFields())
+                .filter(this::isNotNull)
                 .collect(Collectors.toMap(field -> field.getName(), field -> getFieldValue(field)));
+    }
+
+    /***
+     * Return true if field value is not null
+     *
+     * @param field
+     * @return true if field value is not null
+     */
+    private boolean isNotNull(Field field) {
+        return getFieldValue(field) != null;
     }
 
     private Object getFieldValue(Field field) {
@@ -60,12 +71,12 @@ public class KubernetesRuntimeContext implements RuntimeContext {
         } catch (IllegalArgumentException | IllegalAccessException e) {
             // Ignore exceptions
         }
-        return new Object();
+        return null;
     }
 
     @Override
     public String toString() {
-        return "KubernetesRuntimeContext [podIp=" + podIp + ", podname=" + podname + ", namespace=" + namespace
+        return "KubernetesRuntimeContext [podIp=" + podIp + ", podName=" + podName + ", namespace=" + namespace
                 + ", nodeName=" + nodeName + "]";
     }
 

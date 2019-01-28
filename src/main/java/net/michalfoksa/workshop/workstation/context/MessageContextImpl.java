@@ -1,6 +1,6 @@
 package net.michalfoksa.workshop.workstation.context;
 
-public class CallContextImpl implements CallContext {
+public class MessageContextImpl implements MessageContext {
 
     private String correlationId;
 
@@ -13,14 +13,14 @@ public class CallContextImpl implements CallContext {
         this.correlationId = correlationId;
     }
 
-    public CallContext correlationId(String correlationId) {
+    public MessageContext correlationId(String correlationId) {
         this.correlationId = correlationId;
         return this;
     }
 
     @Override
     public String toString() {
-        return "CallContext [correlationId=" + correlationId + "]";
+        return "MessageContextImpl [correlationId=" + correlationId + "]";
     }
 
 }

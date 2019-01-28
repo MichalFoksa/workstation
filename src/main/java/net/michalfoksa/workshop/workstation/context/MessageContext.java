@@ -1,6 +1,6 @@
 package net.michalfoksa.workshop.workstation.context;
 
-public interface CallContext {
+public interface MessageContext {
 
     String getCorrelationId();
 

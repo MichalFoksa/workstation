@@ -8,7 +8,7 @@ import javax.inject.Inject;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 
-import net.michalfoksa.workshop.workstation.context.CallContext;
+import net.michalfoksa.workshop.workstation.context.MessageContext;
 import net.michalfoksa.workshop.workstation.domain.GenericResponse;
 import net.michalfoksa.workshop.workstation.domain.WorkOrder;
 import net.michalfoksa.workshop.workstation.domain.Workstation;
@@ -18,7 +18,7 @@ import net.michalfoksa.workshop.workstation.http.feign.WorkstationClient;
 public class WorkstationApi {
 
     @Inject
-    private CallContext callContext;
+    private MessageContext messageContext;
 
     @Inject
     private WorkstationClient workstationClient;
@@ -26,7 +26,7 @@ public class WorkstationApi {
     public List<GenericResponse<Workstation>> orderWork(URI workstationUri, WorkOrder workOrder) {
         // Pass correlation ID to downstream service.
         HttpHeaders headers = new HttpHeaders();
-        headers.add("x-correlation-id", callContext.getCorrelationId());
+        headers.add("x-correlation-id", messageContext.getCorrelationId());
 
         return workstationClient.orderWork(workstationUri, headers, workOrder);
     }

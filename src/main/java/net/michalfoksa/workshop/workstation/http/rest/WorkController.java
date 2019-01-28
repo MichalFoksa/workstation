@@ -1,4 +1,4 @@
-package net.michalfoksa.workshop.workstation.http;
+package net.michalfoksa.workshop.workstation.http.rest;
 
 import java.net.URI;
 import java.util.ArrayList;
@@ -39,7 +39,7 @@ public class WorkController {
     private WorkstationApi workstationApi;
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public List<GenericResponse<Workstation>> newWork(@RequestBody WorkOrder request) {
+    public List<GenericResponse<Workstation>> createWorkOrder(@RequestBody WorkOrder request) {
         log.debug("Request [request={}]", request);
 
         List<GenericResponse<Workstation>> response = new ArrayList<>();

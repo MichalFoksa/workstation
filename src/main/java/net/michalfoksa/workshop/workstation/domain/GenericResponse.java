@@ -7,11 +7,11 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
-import net.michalfoksa.workshop.workstation.context.CallContext;
-import net.michalfoksa.workshop.workstation.context.CallContextImpl;
+import net.michalfoksa.workshop.workstation.context.MessageContext;
+import net.michalfoksa.workshop.workstation.context.MessageContextImpl;
 
 /***
- * Generic REST response with payload as body and call and runtime contexts.
+ * Generic REST response with payload as body and message and runtime contexts.
  *
  * @author Michal Foksa
  *
@@ -21,9 +21,9 @@ import net.michalfoksa.workshop.workstation.context.CallContextImpl;
 public class GenericResponse<T> {
 
     private T body;
-    @JsonSerialize(as = CallContext.class)
-    @JsonDeserialize(as = CallContextImpl.class)
-    private CallContext callContext;
+    @JsonSerialize(as = MessageContext.class)
+    @JsonDeserialize(as = MessageContextImpl.class)
+    private MessageContext messageContext;
     private Map<String, Object> runtimeContext;
 
     public Object getBody() {
@@ -39,16 +39,16 @@ public class GenericResponse<T> {
         return this;
     }
 
-    public CallContext getCallContext() {
-        return callContext;
+    public MessageContext getMessageContext() {
+        return messageContext;
     }
 
-    public void setCallContext(CallContext callContext) {
-        this.callContext = callContext;
+    public void setMessageContext(MessageContext messageContext) {
+        this.messageContext = messageContext;
     }
 
-    public GenericResponse<T> callContext(CallContext callContext) {
-        this.callContext = callContext;
+    public GenericResponse<T> messageContext(MessageContext messageContext) {
+        this.messageContext = messageContext;
         return this;
     }
 
@@ -67,8 +67,8 @@ public class GenericResponse<T> {
 
     @Override
     public String toString() {
-        return "GenericResponse [body=" + body + ", callContext=" + callContext + ", runtimeContext=" + runtimeContext
-                + "]";
+        return "GenericResponse [body=" + body + ", messageContext=" + messageContext + ", runtimeContext="
+                + runtimeContext + "]";
     }
 
 }

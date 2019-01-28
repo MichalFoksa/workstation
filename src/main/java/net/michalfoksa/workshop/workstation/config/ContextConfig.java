@@ -12,9 +12,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.context.annotation.RequestScope;
 import org.springframework.web.context.request.RequestContextListener;
 
-import net.michalfoksa.workshop.workstation.context.CallContext;
-import net.michalfoksa.workshop.workstation.context.CallContextImpl;
 import net.michalfoksa.workshop.workstation.context.KubernetesRuntimeContext;
+import net.michalfoksa.workshop.workstation.context.MessageContext;
+import net.michalfoksa.workshop.workstation.context.MessageContextImpl;
 import net.michalfoksa.workshop.workstation.context.RuntimeContext;
 
 @Configuration
@@ -30,12 +30,12 @@ public class ContextConfig {
 
     @Bean
     @RequestScope
-    public CallContext callContext(HttpServletRequest request) {
-        CallContext callContext = new CallContextImpl()
+    public MessageContext messageContext(HttpServletRequest request) {
+        MessageContext messageContext = new MessageContextImpl()
                 .correlationId(request.getHeader("x-correlation-id") != null ? request.getHeader("x-correlation-id")
                         : UUID.randomUUID().toString());
-        log.debug("Call context [callContext={}]", callContext);
-        return callContext;
+        log.debug("Message context [messageContext={}]", messageContext);
+        return messageContext;
     }
 
     @Value("${spring.application.name}")

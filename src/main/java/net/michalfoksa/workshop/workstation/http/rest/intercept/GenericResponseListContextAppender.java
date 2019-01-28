@@ -15,14 +15,14 @@ import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
-import net.michalfoksa.workshop.workstation.context.CallContext;
+import net.michalfoksa.workshop.workstation.context.MessageContext;
 import net.michalfoksa.workshop.workstation.context.RuntimeContext;
 import net.michalfoksa.workshop.workstation.domain.GenericResponse;
 
 /***
  * Applicable for List<GenericResponse<?>> response types.
  *
- * Set call context and runtime context into the first (with index 0)
+ * Set message and runtime contexts into the first (with index 0)
  * GenericResponse element.
  *
  * @author Michal Foksa
@@ -34,7 +34,7 @@ public class GenericResponseListContextAppender implements ResponseBodyAdvice<Ob
     private final Logger log = LoggerFactory.getLogger(GenericResponseListContextAppender.class);
 
     @Inject
-    private CallContext callContext;
+    private MessageContext messageContext;
 
     @Inject
     private RuntimeContext runtimeContext;
@@ -61,14 +61,14 @@ public class GenericResponseListContextAppender implements ResponseBodyAdvice<Ob
                         request, response);
 
         /**
-         * If body is List<GenericResponse<?>> set call context and runtime
-         * context into the first (with index 0) element.
+         * If body is List<GenericResponse<?>> set message and runtime contexts
+         * into the first (with index 0) element.
          */
         // Mainly to check if body != null
         if (body instanceof List<?>) {
             List<?> list = (List<?>) body;
             if (list.get(0) instanceof GenericResponse<?>) {
-                ((GenericResponse<?>) list.get(0)).callContext(callContext)
+                ((GenericResponse<?>) list.get(0)).messageContext(messageContext)
                 .runtimeContext(runtimeContext.getAllFieldsMap());
 
                 log.info("[beforeBodyWrite] Contexts appended.");

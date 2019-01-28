@@ -23,3 +23,4 @@ logging.level.org.apache.tomcat: INFO
 logging.level.org.hibernate: INFO
 logging.level.org.thymeleaf: INFO
 logging.level.net.michalfoksa: DEBUG
+logging.level.net.michalfoksa.workshop.workstation.http.rest.intercept: INFO

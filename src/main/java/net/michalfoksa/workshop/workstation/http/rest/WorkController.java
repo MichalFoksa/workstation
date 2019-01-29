@@ -98,7 +98,7 @@ public class WorkController {
                  * [SERVESE_NAME]_SERVICE_HOST
                  * [SERVESE_NAME]_SERVICE_PORT_[PORT_NAME]
                  */
-                String host = System.getenv(workstation.getName() + "_SERVICE_HOST");
+                String host = System.getenv(workstation.getName().toUpperCase() + "_SERVICE_HOST");
                 String port = System
                         .getenv(workstation.getName().toUpperCase() + "_SERVICE_PORT_" + defaultProtocol.toUpperCase());
                 return URI.create(defaultProtocol + "://" + host + ":" + port);

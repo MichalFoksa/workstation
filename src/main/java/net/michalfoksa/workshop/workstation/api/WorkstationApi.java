@@ -1,6 +1,8 @@
 package net.michalfoksa.workshop.workstation.api;
 
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -28,7 +30,26 @@ public class WorkstationApi {
         HttpHeaders headers = new HttpHeaders();
         headers.add("x-correlation-id", messageContext.getCorrelationId());
 
-        return workstationClient.orderWork(workstationUri, headers, workOrder);
+        try {
+            return workstationClient.orderWork(workstationUri, headers, workOrder);
+        } catch (Exception e) {
+            List<GenericResponse<Workstation>> response = new ArrayList<>();
+            response.add(new GenericResponse<Workstation>()
+                    .body(new Workstation().name("Error occured connecting to " + workOrder.getWorkstationName())
+                            .parameters(collectThrowables(e))));
+            return response;
+        }
+    }
+
+    private HashMap<String, String> collectThrowables(Throwable throwable) {
+        // Collect all exceptions into parameters.
+        HashMap<String, String> ret = new HashMap<>();
+        int i = 1;
+        for (Throwable cause = throwable; cause != null; cause = cause.getCause(), i++) {
+            ret.put("message" + i, cause.getMessage());
+            ret.put("exception" + i, cause.getClass().getName());
+        }
+        return ret;
     }
 
 }

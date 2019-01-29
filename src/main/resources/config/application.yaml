@@ -5,6 +5,13 @@ spring:
 # Display application name in Actuator's info endpoint 
 info.app.name: ${spring.application.name}
 
+service:
+  discovery:
+    client:
+      # Protocol used to call downstream services.
+      # It is also used to discover TCP port
+      defaultprototol: http
+
 management:
   # To change which endpoints are exposed, use 
   # management.endpoints.web.exposure.include and  

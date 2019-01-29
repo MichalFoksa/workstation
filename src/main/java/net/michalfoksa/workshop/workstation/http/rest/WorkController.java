@@ -69,8 +69,17 @@ public class WorkController {
         return response;
     }
 
+    /***
+     * Service discovery using Kubernetes environment variables.
+     *
+     * @author Michal Foksa
+     *
+     */
     @Service
     public class UriResolver {
+
+        @Value("${service.discovery.client.defaultprototol:http}")
+        private String defaultProtocol;
 
         /***
          * Create next workstation URI from workstation name, or from
@@ -81,7 +90,18 @@ public class WorkController {
          */
         public URI getUri(Workstation workstation) {
             if (StringUtils.isEmpty(workstation.getUrl())) {
-                return URI.create("http://" + workstation.getName());
+
+                /**
+                 * Service discovery using Kubernetes environment variables.
+                 * Host and port variables format is:
+                 *
+                 * [SERVESE_NAME]_SERVICE_HOST
+                 * [SERVESE_NAME]_SERVICE_PORT_[PORT_NAME]
+                 */
+                String host = System.getenv(workstation.getName().toUpperCase() + "_SERVICE_HOST");
+                String port = System
+                        .getenv(workstation.getName().toUpperCase() + "_SERVICE_PORT_" + defaultProtocol.toUpperCase());
+                return URI.create(defaultProtocol + "://" + host + ":" + port);
             }
             return URI.create(workstation.getUrl());
         }

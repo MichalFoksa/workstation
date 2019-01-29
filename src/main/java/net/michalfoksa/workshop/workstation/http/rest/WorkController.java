@@ -72,6 +72,9 @@ public class WorkController {
     @Service
     public class UriResolver {
 
+        @Value("${service.discovery.client.defaultprototol:http}")
+        private String defaultProtocol;
+
         /***
          * Create next workstation URI from workstation name, or from
          * workstation URL string if provided.
@@ -81,7 +84,7 @@ public class WorkController {
          */
         public URI getUri(Workstation workstation) {
             if (StringUtils.isEmpty(workstation.getUrl())) {
-                return URI.create("http://" + workstation.getName());
+                return URI.create(defaultProtocol + "://" + workstation.getName());
             }
             return URI.create(workstation.getUrl());
         }

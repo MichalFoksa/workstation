@@ -1,4 +1,4 @@
-package net.michalfoksa.workshop.workstation.config;
+package net.michalfoksa.demos.workshop.workstation.config;
 
 import java.util.UUID;
 
@@ -12,10 +12,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.context.annotation.RequestScope;
 import org.springframework.web.context.request.RequestContextListener;
 
-import net.michalfoksa.workshop.workstation.context.KubernetesRuntimeContext;
-import net.michalfoksa.workshop.workstation.context.MessageContext;
-import net.michalfoksa.workshop.workstation.context.MessageContextImpl;
-import net.michalfoksa.workshop.workstation.context.RuntimeContext;
+import net.michalfoksa.demos.workshop.workstation.context.KubernetesRuntimeContext;
+import net.michalfoksa.demos.workshop.workstation.context.MessageContext;
+import net.michalfoksa.demos.workshop.workstation.context.MessageContextImpl;
+import net.michalfoksa.demos.workshop.workstation.context.RuntimeContext;
 
 @Configuration
 public class ContextConfig {
@@ -39,7 +39,7 @@ public class ContextConfig {
     }
 
     @Value("${spring.application.name}")
-    private String applicationName;
+    private String application;
 
     @Value("${spring.cloud.client.hostname}")
     private String hostname;
@@ -62,7 +62,7 @@ public class ContextConfig {
     @Bean
     public RuntimeContext runtimeContext() {
         KubernetesRuntimeContext rt = new KubernetesRuntimeContext();
-        rt.setApplicationName(applicationName);
+        rt.setApplication(application);
         rt.setHostname(podName != null ? podName : hostname);
         rt.setIp(podIp != null ? podIp : ipAddress);
         rt.setNodeName(nodeName);

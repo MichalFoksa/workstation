@@ -1,11 +1,11 @@
-package net.michalfoksa.workshop.workstation.domain;
+package net.michalfoksa.demos.workshop.workstation.domain;
 
 import java.util.HashMap;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-@JsonInclude(Include.NON_NULL)
+@JsonInclude(Include.NON_EMPTY)
 public class Workstation {
 
 

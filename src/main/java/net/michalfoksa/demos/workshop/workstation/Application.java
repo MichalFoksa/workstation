@@ -1,4 +1,4 @@
-package net.michalfoksa.workshop.workstation;
+package net.michalfoksa.demos.workshop.workstation;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,4 +1,4 @@
-package net.michalfoksa.workshop.workstation.context;
+package net.michalfoksa.demos.workshop.workstation.context;
 
 public class MessageContextImpl implements MessageContext {
 

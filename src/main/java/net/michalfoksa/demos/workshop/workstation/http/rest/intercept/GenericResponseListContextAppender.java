@@ -1,4 +1,4 @@
-package net.michalfoksa.workshop.workstation.http.rest.intercept;
+package net.michalfoksa.demos.workshop.workstation.http.rest.intercept;
 
 import java.util.List;
 
@@ -15,9 +15,9 @@ import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
-import net.michalfoksa.workshop.workstation.context.MessageContext;
-import net.michalfoksa.workshop.workstation.context.RuntimeContext;
-import net.michalfoksa.workshop.workstation.domain.GenericResponse;
+import net.michalfoksa.demos.workshop.workstation.context.MessageContext;
+import net.michalfoksa.demos.workshop.workstation.context.RuntimeContext;
+import net.michalfoksa.demos.workshop.workstation.domain.GenericResponse;
 
 /***
  * Applicable for List<GenericResponse<?>> response types.
@@ -28,7 +28,7 @@ import net.michalfoksa.workshop.workstation.domain.GenericResponse;
  * @author Michal Foksa
  *
  */
-@RestControllerAdvice(basePackages = "net.michalfoksa.workshop.workstation.http.rest")
+@RestControllerAdvice(basePackages = "net.michalfoksa.demos.workshop.workstation.http.rest")
 public class GenericResponseListContextAppender implements ResponseBodyAdvice<Object> {
 
     private final Logger log = LoggerFactory.getLogger(GenericResponseListContextAppender.class);

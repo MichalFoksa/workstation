@@ -1,10 +1,10 @@
-package net.michalfoksa.workshop.workstation.context;
+package net.michalfoksa.demos.workshop.workstation.context;
 
 import java.util.Map;
 
 public interface RuntimeContext {
 
-    String getApplicationName();
+    String getApplication();
 
     String getIp();
 

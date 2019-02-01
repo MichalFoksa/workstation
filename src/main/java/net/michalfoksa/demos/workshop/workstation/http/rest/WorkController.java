@@ -1,4 +1,4 @@
-package net.michalfoksa.workshop.workstation.http.rest;
+package net.michalfoksa.demos.workshop.workstation.http.rest;
 
 import java.net.URI;
 import java.util.ArrayList;
@@ -18,10 +18,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import net.michalfoksa.workshop.workstation.api.WorkstationApi;
-import net.michalfoksa.workshop.workstation.domain.GenericResponse;
-import net.michalfoksa.workshop.workstation.domain.WorkOrder;
-import net.michalfoksa.workshop.workstation.domain.Workstation;
+import net.michalfoksa.demos.workshop.workstation.api.WorkstationApi;
+import net.michalfoksa.demos.workshop.workstation.domain.GenericResponse;
+import net.michalfoksa.demos.workshop.workstation.domain.WorkOrder;
+import net.michalfoksa.demos.workshop.workstation.domain.Workstation;
 
 @RestController
 @RequestMapping(path = "/works")

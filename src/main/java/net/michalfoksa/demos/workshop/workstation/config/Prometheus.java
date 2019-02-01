@@ -1,4 +1,4 @@
-package net.michalfoksa.workshop.workstation.config;
+package net.michalfoksa.demos.workshop.workstation.config;
 
 import javax.inject.Inject;
 
@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import io.micrometer.core.instrument.MeterRegistry;
-import net.michalfoksa.workshop.workstation.context.RuntimeContext;
+import net.michalfoksa.demos.workshop.workstation.context.RuntimeContext;
 
 @Configuration
 public class Prometheus {

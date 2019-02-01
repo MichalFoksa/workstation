@@ -1,4 +1,4 @@
-package net.michalfoksa.workshop.workstation.api;
+package net.michalfoksa.demos.workshop.workstation.api;
 
 import java.net.URI;
 import java.util.ArrayList;
@@ -10,11 +10,11 @@ import javax.inject.Inject;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 
-import net.michalfoksa.workshop.workstation.context.MessageContext;
-import net.michalfoksa.workshop.workstation.domain.GenericResponse;
-import net.michalfoksa.workshop.workstation.domain.WorkOrder;
-import net.michalfoksa.workshop.workstation.domain.Workstation;
-import net.michalfoksa.workshop.workstation.http.feign.WorkstationClient;
+import net.michalfoksa.demos.workshop.workstation.context.MessageContext;
+import net.michalfoksa.demos.workshop.workstation.domain.GenericResponse;
+import net.michalfoksa.demos.workshop.workstation.domain.WorkOrder;
+import net.michalfoksa.demos.workshop.workstation.domain.Workstation;
+import net.michalfoksa.demos.workshop.workstation.http.feign.WorkstationClient;
 
 @Service
 public class WorkstationApi {

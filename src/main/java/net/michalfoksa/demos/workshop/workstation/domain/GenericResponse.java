@@ -1,4 +1,4 @@
-package net.michalfoksa.workshop.workstation.domain;
+package net.michalfoksa.demos.workshop.workstation.domain;
 
 import java.util.Map;
 
@@ -7,8 +7,8 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
-import net.michalfoksa.workshop.workstation.context.MessageContext;
-import net.michalfoksa.workshop.workstation.context.MessageContextImpl;
+import net.michalfoksa.demos.workshop.workstation.context.MessageContext;
+import net.michalfoksa.demos.workshop.workstation.context.MessageContextImpl;
 
 /***
  * Generic REST response with payload as body and message and runtime contexts.

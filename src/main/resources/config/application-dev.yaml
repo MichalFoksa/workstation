@@ -1,4 +1,4 @@
 # Log levels
 # logging.level.org.springframework.web: DEBUG
 logging.level.org.springframework.web.servlet.DispatcherServlet: DEBUG
-logging.level.net.michalfoksa.workshop.workstation.http.rest.intercept: DEBUG
+logging.level.net.michalfoksa.demos.workshop.workstation.http.rest.intercept: DEBUG

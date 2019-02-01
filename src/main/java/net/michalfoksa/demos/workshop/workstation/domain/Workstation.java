@@ -1,4 +1,4 @@
-package net.michalfoksa.workshop.workstation.domain;
+package net.michalfoksa.demos.workshop.workstation.domain;
 
 import java.util.HashMap;
 

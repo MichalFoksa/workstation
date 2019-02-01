@@ -1,4 +1,4 @@
-package net.michalfoksa.workshop.workstation.config;
+package net.michalfoksa.demos.workshop.workstation.config;
 
 import java.util.UUID;
 
@@ -12,10 +12,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.context.annotation.RequestScope;
 import org.springframework.web.context.request.RequestContextListener;
 
-import net.michalfoksa.workshop.workstation.context.KubernetesRuntimeContext;
-import net.michalfoksa.workshop.workstation.context.MessageContext;
-import net.michalfoksa.workshop.workstation.context.MessageContextImpl;
-import net.michalfoksa.workshop.workstation.context.RuntimeContext;
+import net.michalfoksa.demos.workshop.workstation.context.KubernetesRuntimeContext;
+import net.michalfoksa.demos.workshop.workstation.context.MessageContext;
+import net.michalfoksa.demos.workshop.workstation.context.MessageContextImpl;
+import net.michalfoksa.demos.workshop.workstation.context.RuntimeContext;
 
 @Configuration
 public class ContextConfig {

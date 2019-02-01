@@ -1,4 +1,4 @@
-package net.michalfoksa.workshop.workstation.http.web;
+package net.michalfoksa.demos.workshop.workstation.http.web;
 
 import javax.inject.Inject;
 
@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import net.michalfoksa.workshop.workstation.context.RuntimeContext;
+import net.michalfoksa.demos.workshop.workstation.context.RuntimeContext;
 
 @Controller
 @RequestMapping(path="/")

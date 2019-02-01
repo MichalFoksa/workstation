@@ -18,7 +18,7 @@ public class Prometheus {
     @Bean
     MeterRegistryCustomizer<MeterRegistry> metricsCommonTags() {
         return registry -> {
-            registry.config().commonTags("application", runtimeContext.getApplicationName()).commonTags("hostname",
+            registry.config().commonTags("application", runtimeContext.getApplication()).commonTags("hostname",
                     runtimeContext.getHostname()).commonTags("ip", runtimeContext.getIp());
 
             if (runtimeContext.getAllFieldsMap().get("nodeName") != null) {

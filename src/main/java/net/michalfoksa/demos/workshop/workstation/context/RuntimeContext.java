@@ -4,7 +4,7 @@ import java.util.Map;
 
 public interface RuntimeContext {
 
-    String getApplicationName();
+    String getApplication();
 
     String getIp();
 

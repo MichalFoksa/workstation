@@ -39,7 +39,7 @@ public class ContextConfig {
     }
 
     @Value("${spring.application.name}")
-    private String applicationName;
+    private String application;
 
     @Value("${spring.cloud.client.hostname}")
     private String hostname;
@@ -62,7 +62,7 @@ public class ContextConfig {
     @Bean
     public RuntimeContext runtimeContext() {
         KubernetesRuntimeContext rt = new KubernetesRuntimeContext();
-        rt.setApplicationName(applicationName);
+        rt.setApplication(application);
         rt.setHostname(podName != null ? podName : hostname);
         rt.setIp(podIp != null ? podIp : ipAddress);
         rt.setNodeName(nodeName);

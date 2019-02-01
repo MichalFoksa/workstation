@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import net.michalfoksa.demos.workshop.workstation.api.WorkstationApi;
+import net.michalfoksa.demos.workshop.workstation.context.RuntimeContext;
 import net.michalfoksa.demos.workshop.workstation.domain.GenericResponse;
 import net.michalfoksa.demos.workshop.workstation.domain.WorkOrder;
 import net.michalfoksa.demos.workshop.workstation.domain.Workstation;
@@ -29,8 +30,8 @@ public class WorkController {
 
     private final Logger log = LoggerFactory.getLogger(WorkController.class);
 
-    @Value("${spring.application.name}")
-    private String appName;
+    @Inject
+    private RuntimeContext runtimeContext;
 
     @Inject
     private UriResolver uriResolver;
@@ -46,7 +47,8 @@ public class WorkController {
         // Add response of current workstation at beginning of the all responses
         // array.
         response.add(new GenericResponse<Workstation>().body(new Workstation()
-                .name(request.getWorkstationName() + " appName: " + appName).parameters(request.getParameters())));
+                .name(request.getWorkstationName() + " application: " + runtimeContext.getApplication())
+                .parameters(request.getParameters())));
 
         if (request.getNextStations().size() > 0) {
             Workstation nextStation = request.getNextStations().get(0);

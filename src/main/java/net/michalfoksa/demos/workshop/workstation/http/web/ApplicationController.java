@@ -1,5 +1,7 @@
 package net.michalfoksa.demos.workshop.workstation.http.web;
 
+import java.util.stream.Collectors;
+
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Controller;
@@ -18,7 +20,15 @@ public class ApplicationController {
 
     @GetMapping()
     public @ResponseBody String getApplicationInfo() {
-        return runtimeContext.getAllFieldsMap().toString();
+        StringBuilder sb = new StringBuilder();
+        sb.append("<table>\n<tr>");
+
+        String data = runtimeContext.getAllFieldsMap().entrySet().stream()
+                .sorted((a, b) -> a.getKey().compareTo(b.getKey()))
+                .map(entry -> "<td>" + entry.getKey() + ":</td> <td>" + entry.getValue().toString() + "</td>")
+                .collect(Collectors.joining("</tr>\n<tr>"));
+
+        return sb.append(data).append("</tr>\n</table>").toString();
     }
 
 }

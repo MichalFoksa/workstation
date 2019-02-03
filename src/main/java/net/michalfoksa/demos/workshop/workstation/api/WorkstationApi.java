@@ -31,7 +31,7 @@ public class WorkstationApi {
         headers.add("x-correlation-id", messageContext.getCorrelationId());
 
         try {
-            return workstationClient.orderWork(workstationUri, headers, workOrder);
+            return workstationClient.orderWork(workstationUri, headers, messageContext.isReturnContexts(), workOrder);
         } catch (Exception e) {
             List<GenericResponse<Workstation>> response = new ArrayList<>();
             response.add(new GenericResponse<Workstation>()

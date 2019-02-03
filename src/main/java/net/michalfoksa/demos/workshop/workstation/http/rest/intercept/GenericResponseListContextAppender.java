@@ -42,8 +42,9 @@ public class GenericResponseListContextAppender implements ResponseBodyAdvice<Ob
     @Override
     public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
 
-        // Is return type subclass of java.util.List and JSON message converter
-        if (List.class.isAssignableFrom(returnType.getParameterType())
+        // Is it desired to render context and is return type subclass of
+        // java.util.List and JSON message converter
+        if (messageContext.isReturnContexts() && List.class.isAssignableFrom(returnType.getParameterType())
                 && converterType.isAssignableFrom(MappingJackson2HttpMessageConverter.class)) {
             log.debug("[supports] [returnType={}, converterType={}]", returnType, converterType);
             return true;

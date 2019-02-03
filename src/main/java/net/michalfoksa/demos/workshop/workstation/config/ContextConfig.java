@@ -31,9 +31,16 @@ public class ContextConfig {
     @Bean
     @RequestScope
     public MessageContext messageContext(HttpServletRequest request) {
-        MessageContext messageContext = new MessageContextImpl()
+        MessageContextImpl messageContext = new MessageContextImpl()
                 .correlationId(request.getHeader("x-correlation-id") != null ? request.getHeader("x-correlation-id")
-                        : UUID.randomUUID().toString());
+                        : UUID.randomUUID().toString())
+                .returnContexts(true);
+
+        String returnContexts = request.getParameter("returnContexts");
+        if (returnContexts != null && "false".equals(returnContexts.toLowerCase())) {
+            messageContext.setReturnContexts(false);
+        }
+
         log.debug("Message context [messageContext={}]", messageContext);
         return messageContext;
     }

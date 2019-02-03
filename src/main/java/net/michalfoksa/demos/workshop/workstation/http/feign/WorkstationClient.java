@@ -8,6 +8,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import net.michalfoksa.demos.workshop.workstation.domain.GenericResponse;
 import net.michalfoksa.demos.workshop.workstation.domain.WorkOrder;
@@ -18,7 +19,7 @@ public interface WorkstationClient {
 
     @PostMapping(path = "/works")
     List<GenericResponse<Workstation>> orderWork(URI workstationUri, @RequestHeader HttpHeaders headers,
-            @RequestBody WorkOrder workOrder);
+            @RequestParam boolean returnContexts, @RequestBody WorkOrder workOrder);
 
 }
 

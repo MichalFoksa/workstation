@@ -10,7 +10,7 @@ public class KubernetesRuntimeContext implements RuntimeContext {
     private String application;
     private String podIp;
     private String podName;
-    private String namespace;
+    private String podNamespace;
     private String nodeName;
 
     @Override
@@ -22,6 +22,11 @@ public class KubernetesRuntimeContext implements RuntimeContext {
         this.application = application;
     }
 
+    public KubernetesRuntimeContext application(String application) {
+        this.application = application;
+        return this;
+    }
+
     @Override
     public String getIp() {
         return podIp;
@@ -29,6 +34,11 @@ public class KubernetesRuntimeContext implements RuntimeContext {
 
     public void setIp(String ip) {
         this.podIp = ip;
+    }
+
+    public KubernetesRuntimeContext ip(String ip) {
+        this.podIp = ip;
+        return this;
     }
 
     @Override
@@ -40,14 +50,23 @@ public class KubernetesRuntimeContext implements RuntimeContext {
         this.podName = hostname;
     }
 
-    public String getNamespace() {
-        return namespace;
+    public KubernetesRuntimeContext hostname(String hostname) {
+        this.podName = hostname;
+        return this;
     }
 
-    public void setNamespace(String namespace) {
-        this.namespace = namespace;
+    public String getPodNamespace() {
+        return podNamespace;
     }
 
+    public void setPodNamespace(String podNamespace) {
+        this.podNamespace = podNamespace;
+    }
+
+    public KubernetesRuntimeContext podNamespace(String podNamespace) {
+        this.podNamespace = podNamespace;
+        return this;
+    }
 
     public String getNodeName() {
         return nodeName;
@@ -57,8 +76,14 @@ public class KubernetesRuntimeContext implements RuntimeContext {
         this.nodeName = nodeName;
     }
 
+    public KubernetesRuntimeContext nodeName(String nodeName) {
+        this.nodeName = nodeName;
+        return this;
+    }
+
     @Override
     public Map<String, Object> getAllFieldsMap() {
+        // Collect all non null class properties into map.
         return Arrays.stream(KubernetesRuntimeContext.class.getDeclaredFields())
                 .filter(this::isNotNull)
                 .collect(Collectors.toMap(field -> field.getName(), field -> getFieldValue(field)));
@@ -87,7 +112,7 @@ public class KubernetesRuntimeContext implements RuntimeContext {
     @Override
     public String toString() {
         return "KubernetesRuntimeContext [application=" + application + ", podIp=" + podIp + ", podName="
-                + podName + ", namespace=" + namespace + ", nodeName=" + nodeName + "]";
+                + podName + ", podNamespace=" + podNamespace + ", nodeName=" + nodeName + "]";
     }
 
 }

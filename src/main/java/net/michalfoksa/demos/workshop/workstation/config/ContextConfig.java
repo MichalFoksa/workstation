@@ -53,25 +53,21 @@ public class ContextConfig {
     @Value("${POD_IP:#{null}}")
     private String podIp;
 
+    @Value("${POD_NAMESPACE:#{null}}")
+    private String podNamespace;
+
     @Value("${NODE_NAME:#{null}}")
     private String nodeName;
 
-    @Value("${POD_NAMESPACE:#{null}}")
-    private String namespace;
-
     @Bean
     public RuntimeContext runtimeContext() {
-        KubernetesRuntimeContext rt = new KubernetesRuntimeContext();
-        rt.setApplication(application);
-        rt.setHostname(podName != null ? podName : hostname);
-        rt.setIp(podIp != null ? podIp : ipAddress);
-        rt.setNodeName(nodeName);
-        rt.setNamespace(namespace);
+        KubernetesRuntimeContext rt = new KubernetesRuntimeContext().application(application)
+                .hostname(podName != null ? podName : hostname).ip(podIp != null ? podIp : ipAddress)
+                .podNamespace(podNamespace).nodeName(nodeName);
 
         log.debug("Runtime context [runtimeContext={}]", rt);
 
         return rt;
     }
-
 
 }

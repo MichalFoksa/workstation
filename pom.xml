@@ -95,19 +95,30 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 
+            <!--  Brought by `jx import ...` -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M1</version>
+            </plugin>
+
             <!--  Swagger codegen -->
-			<plugin>
-			    <groupId>io.swagger</groupId>
-			    <artifactId>swagger-codegen-maven-plugin</artifactId>
-			    <version>${swagger-codegen-plugin.version}</version>
-			    <executions>
-			        <execution>
-			            <goals>
-			                <goal>generate</goal>
-			            </goals>
-			            <configuration>
-			                <inputSpec>${project.basedir}/src/main/resources/swagger/workstation-api.yaml</inputSpec>
-			                <language>spring</language>
+            <plugin>
+                <groupId>io.swagger</groupId>
+                <artifactId>swagger-codegen-maven-plugin</artifactId>
+                <version>${swagger-codegen-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <inputSpec>${project.basedir}/src/main/resources/swagger/workstation-api.yaml</inputSpec>
+                            <language>spring</language>
                             <apiPackage>${default.swagger.package}.api</apiPackage>
                             <modelPackage>${default.swagger.package}.model</modelPackage>
                             <invokerPackage>${default.swagger.package}.handler</invokerPackage>
@@ -121,20 +132,32 @@
                                 <sourceFolder>src/main/java-generated</sourceFolder>
                             </configOptions>
                             <output>${project.basedir}</output>
-			            </configuration>
-			        </execution>
-			    </executions>
-			</plugin>
-
-            <!--  Brought by `jx import ...` -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-deploy-plugin</artifactId>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
+
+            <!-- Delete src/main/java-generated as part of generate-sources and clean goals -->
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.0.0-M1</version>
+                <artifactId>maven-clean-plugin</artifactId>
+                <configuration>
+                    <filesets>
+                        <fileset>
+                            <directory>${project.basedir}/src/main/java-generated</directory>
+                        </fileset>
+                    </filesets>
+                </configuration>
+                <executions>
+                   <execution>
+                     <id>delete-src/main/java-generated</id>
+                     <!-- 'initialize' is the phase before 'generate-sources'
+                         use 'verify' to execute it before 'install' -->
+                     <phase>initialize</phase>
+                     <goals>
+                         <goal>clean</goal>
+                     </goals>
+                   </execution>
+                </executions>
             </plugin>
 
         </plugins>

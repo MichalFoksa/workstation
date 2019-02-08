@@ -1,0 +1,10 @@
+{
+    "library": "spring-boot",
+    "apiPackage":   "net.michalfoksa.demos.workshop.workstation.rest.api",
+    "modelPackage": "net.michalfoksa.demos.workshop.workstation.rest.model",
+    "interfaceOnly": true,
+    "serializableModel": false,
+    "dateLibrary": "java8",
+    "hideGenerationTimestamp": true,
+    "sourceFolder": "src/main/java-generated"
+}

@@ -30,10 +30,10 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
-@Api(value = "api", description = "the api API")
-public interface ApiApi {
+@Api(value = "Tasks", description = "the Tasks API")
+public interface TasksApi {
 
-    Logger log = LoggerFactory.getLogger(ApiApi.class);
+    Logger log = LoggerFactory.getLogger(TasksApi.class);
 
     default Optional<ObjectMapper> getObjectMapper() {
         return Optional.empty();
@@ -47,7 +47,7 @@ public interface ApiApi {
         return getRequest().map(r -> r.getHeader("Accept"));
     }
 
-    @ApiOperation(value = "", nickname = "createTask", notes = "Creating a new user task", response = Task.class, tags={  })
+    @ApiOperation(value = "", nickname = "createTask", notes = "Creating a new user task", response = Task.class, tags={ "tasks", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Success", response = Task.class),
         @ApiResponse(code = 400, message = "Bad request", response = Message.class) })
@@ -66,13 +66,13 @@ public interface ApiApi {
                 }
             }
         } else {
-            log.warn("ObjectMapper or HttpServletRequest not configured in default ApiApi interface so no example is generated");
+            log.warn("ObjectMapper or HttpServletRequest not configured in default TasksApi interface so no example is generated");
         }
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }
 
 
-    @ApiOperation(value = "", nickname = "deleteTask", notes = "Deleting an existing user task", tags={  })
+    @ApiOperation(value = "", nickname = "deleteTask", notes = "Deleting an existing user task", tags={ "tasks", })
     @ApiResponses(value = { 
         @ApiResponse(code = 204, message = "Success"),
         @ApiResponse(code = 404, message = "Task not found", response = Message.class) })
@@ -82,13 +82,13 @@ public interface ApiApi {
     default ResponseEntity<Void> deleteTask(@ApiParam(value = "ID of the task you want to update or delete",required=true) @PathVariable("id") Long id) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
         } else {
-            log.warn("ObjectMapper or HttpServletRequest not configured in default ApiApi interface so no example is generated");
+            log.warn("ObjectMapper or HttpServletRequest not configured in default TasksApi interface so no example is generated");
         }
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }
 
 
-    @ApiOperation(value = "", nickname = "getAllTasks", notes = "Retrieving the collection of user tasks", response = Task.class, responseContainer = "List", tags={  })
+    @ApiOperation(value = "", nickname = "getAllTasks", notes = "Retrieving the collection of user tasks", response = Task.class, responseContainer = "List", tags={ "tasks", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Success", response = Task.class, responseContainer = "List") })
     @RequestMapping(value = "/api/tasks",
@@ -105,13 +105,13 @@ public interface ApiApi {
                 }
             }
         } else {
-            log.warn("ObjectMapper or HttpServletRequest not configured in default ApiApi interface so no example is generated");
+            log.warn("ObjectMapper or HttpServletRequest not configured in default TasksApi interface so no example is generated");
         }
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }
 
 
-    @ApiOperation(value = "", nickname = "updateTask", notes = "Updating an existing user task", response = Task.class, tags={  })
+    @ApiOperation(value = "", nickname = "updateTask", notes = "Updating an existing user task", response = Task.class, tags={ "tasks", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Success", response = Task.class),
         @ApiResponse(code = 400, message = "Bad request", response = Message.class),
@@ -131,7 +131,7 @@ public interface ApiApi {
                 }
             }
         } else {
-            log.warn("ObjectMapper or HttpServletRequest not configured in default ApiApi interface so no example is generated");
+            log.warn("ObjectMapper or HttpServletRequest not configured in default TasksApi interface so no example is generated");
         }
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }

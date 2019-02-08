@@ -6,5 +6,6 @@
     "serializableModel": false,
     "dateLibrary": "java8",
     "hideGenerationTimestamp": true,
+    "useTags": true,
     "sourceFolder": "src/main/java-generated"
 }

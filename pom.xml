@@ -18,7 +18,10 @@
 		<java.version>1.8</java.version>
 		<spring-cloud.version>Greenwich.RC2</spring-cloud.version>
 		<javax.inject.version>1</javax.inject.version>
-        <springfox-version>2.7.0</springfox-version>
+        <springfox.version>2.7.0</springfox.version>
+        <!--  Swagger codegen related config -->
+        <swagger-codegen-plugin.version>2.4.1</swagger-codegen-plugin.version>
+        <default.swagger.package>net.michalfoksa.demos.workshop.workstation.rest</default.swagger.package>
 	</properties>
 
 	<dependencies>
@@ -47,12 +50,12 @@
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
-            <version>${springfox-version}</version>
+            <version>${springfox.version}</version>
         </dependency>
         <!-- dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
-            <version>${springfox-version}</version>
+            <version>${springfox.version}</version>
         </dependency -->
 
         <dependency>
@@ -90,6 +93,37 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+
+            <!--  Swagger codegen -->
+			<plugin>
+			    <groupId>io.swagger</groupId>
+			    <artifactId>swagger-codegen-maven-plugin</artifactId>
+			    <version>${swagger-codegen-plugin.version}</version>
+			    <executions>
+			        <execution>
+			            <goals>
+			                <goal>generate</goal>
+			            </goals>
+			            <configuration>
+			                <inputSpec>${project.basedir}/src/main/resources/swagger/workstation-api.yaml</inputSpec>
+			                <language>spring</language>
+                            <apiPackage>${default.swagger.package}.api</apiPackage>
+                            <modelPackage>${default.swagger.package}.model</modelPackage>
+                            <invokerPackage>${default.swagger.package}.handler</invokerPackage>
+                            <configOptions>
+                                <library>spring-boot</library>
+                                <dateLibrary>java8</dateLibrary>
+                                <serializableModel>false</serializableModel>
+                                <interfaceOnly>true</interfaceOnly>
+                                <hideGenerationTimestamp>true</hideGenerationTimestamp>
+                                <useTags>true</useTags>
+                                <sourceFolder>src/main/java-generated</sourceFolder>
+                            </configOptions>
+                            <output>${project.basedir}</output>
+			            </configuration>
+			        </execution>
+			    </executions>
 			</plugin>
 
             <!--  Brought by `jx import ...` -->

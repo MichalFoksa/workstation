@@ -18,6 +18,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 import net.michalfoksa.demos.workshop.workstation.context.MessageContext;
 import net.michalfoksa.demos.workshop.workstation.context.RuntimeContext;
 import net.michalfoksa.demos.workshop.workstation.domain.GenericResponse;
+import net.michalfoksa.demos.workshop.workstation.domain.Workstation;
 
 /***
  * Applicable for List<GenericResponse<?>> response types.
@@ -29,7 +30,7 @@ import net.michalfoksa.demos.workshop.workstation.domain.GenericResponse;
  *
  */
 @RestControllerAdvice(basePackages = "net.michalfoksa.demos.workshop.workstation.http.rest")
-public class GenericResponseListContextAppender implements ResponseBodyAdvice<Object> {
+public class GenericResponseListContextAppender implements ResponseBodyAdvice<List<GenericResponse<Workstation>>> {
 
     private final Logger log = LoggerFactory.getLogger(GenericResponseListContextAppender.class);
 
@@ -53,9 +54,10 @@ public class GenericResponseListContextAppender implements ResponseBodyAdvice<Ob
     }
 
     @Override
-    public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType,
+    public List<GenericResponse<Workstation>> beforeBodyWrite(List<GenericResponse<Workstation>> body,
+            MethodParameter returnType, MediaType selectedContentType,
             Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request,
-                    ServerHttpResponse response) {
+            ServerHttpResponse response) {
         log.debug(
                 "[beforeBodyWrite] [bodyClass={}, body={}, returnType={}, selectedContentType={}, selectedConverterType={}, request={}, response={}]",
                 body != null ? body.getClass() : "null", body, returnType, selectedContentType, selectedConverterType,
@@ -65,17 +67,15 @@ public class GenericResponseListContextAppender implements ResponseBodyAdvice<Ob
          * If body is List<GenericResponse<?>> set message and runtime contexts
          * into the first (with index 0) element.
          */
-        // Mainly to check if body != null
-        if (body instanceof List<?>) {
-            List<?> list = (List<?>) body;
-            if (list.get(0) instanceof GenericResponse<?>) {
-                ((GenericResponse<?>) list.get(0)).messageContext(messageContext)
+        if (body != null) {
+            if (body.get(0) instanceof GenericResponse<?>) {
+                ((GenericResponse<?>) body.get(0)).messageContext(messageContext)
                 .runtimeContext(runtimeContext.getAllFieldsMap());
 
                 log.info("[beforeBodyWrite] Contexts appended.");
             } else {
                 log.debug("[beforeBodyWrite] First list element is not type of GenericResponse<?> [class={}]",
-                        list.get(0) != null ? list.get(0).getClass() : "null");
+                        body.get(0) != null ? body.get(0).getClass() : "null");
             }
         }
 

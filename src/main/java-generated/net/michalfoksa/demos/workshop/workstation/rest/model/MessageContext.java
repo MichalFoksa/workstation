@@ -10,33 +10,33 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 
 /**
- * A message containing more info why the operation failed
+ * Describes how a request or response was created.
  */
-@ApiModel(description = "A message containing more info why the operation failed")
+@ApiModel(description = "Describes how a request or response was created.")
 @Validated
 
-public class Message   {
-  @JsonProperty("message")
-  private String message = null;
+public class MessageContext   {
+  @JsonProperty("correlationId")
+  private String correlationId = null;
 
-  public Message message(String message) {
-    this.message = message;
+  public MessageContext correlationId(String correlationId) {
+    this.correlationId = correlationId;
     return this;
   }
 
   /**
-   * The message itself
-   * @return message
+   * Client generated ID to correlate all service requests in one business operation (transaction).
+   * @return correlationId
   **/
-  @ApiModelProperty(value = "The message itself")
+  @ApiModelProperty(value = "Client generated ID to correlate all service requests in one business operation (transaction).")
 
 
-  public String getMessage() {
-    return message;
+  public String getCorrelationId() {
+    return correlationId;
   }
 
-  public void setMessage(String message) {
-    this.message = message;
+  public void setCorrelationId(String correlationId) {
+    this.correlationId = correlationId;
   }
 
 
@@ -48,21 +48,21 @@ public class Message   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Message message = (Message) o;
-    return Objects.equals(this.message, message.message);
+    MessageContext messageContext = (MessageContext) o;
+    return Objects.equals(this.correlationId, messageContext.correlationId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(message);
+    return Objects.hash(correlationId);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Message {\n");
+    sb.append("class MessageContext {\n");
     
-    sb.append("    message: ").append(toIndentedString(message)).append("\n");
+    sb.append("    correlationId: ").append(toIndentedString(correlationId)).append("\n");
     sb.append("}");
     return sb.toString();
   }

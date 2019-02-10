@@ -27,7 +27,7 @@ public class Workstation   {
 
   @JsonProperty("parameters")
   @Valid
-  private Map<String, String> parameters = null;
+  private Map<String, String> parameters = new HashMap<>();
 
   public Workstation name(String name) {
     this.name = name;
@@ -76,9 +76,6 @@ public class Workstation   {
   }
 
   public Workstation putParametersItem(String key, String parametersItem) {
-    if (this.parameters == null) {
-      this.parameters = new HashMap<>();
-    }
     this.parameters.put(key, parametersItem);
     return this;
   }
@@ -87,7 +84,8 @@ public class Workstation   {
    * Free named parameters. They do not have any pupose, just to pass some data through assebly line workstations.
    * @return parameters
   **/
-  @ApiModelProperty(value = "Free named parameters. They do not have any pupose, just to pass some data through assebly line workstations.")
+  @ApiModelProperty(required = true, value = "Free named parameters. They do not have any pupose, just to pass some data through assebly line workstations.")
+  @NotNull
 
 
   public Map<String, String> getParameters() {

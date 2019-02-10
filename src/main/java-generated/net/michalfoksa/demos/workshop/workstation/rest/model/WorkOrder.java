@@ -26,11 +26,11 @@ public class WorkOrder   {
 
   @JsonProperty("parameters")
   @Valid
-  private Map<String, String> parameters = null;
+  private Map<String, String> parameters = new HashMap<>();
 
   @JsonProperty("nextStations")
   @Valid
-  private List<Workstation> nextStations = null;
+  private List<Workstation> nextStations = new ArrayList<>();
 
   public WorkOrder workstationName(String workstationName) {
     this.workstationName = workstationName;
@@ -59,9 +59,6 @@ public class WorkOrder   {
   }
 
   public WorkOrder putParametersItem(String key, String parametersItem) {
-    if (this.parameters == null) {
-      this.parameters = new HashMap<>();
-    }
     this.parameters.put(key, parametersItem);
     return this;
   }
@@ -70,7 +67,8 @@ public class WorkOrder   {
    * Free named parameters. They do not have any pupose, just to pass some data through assebly line workstations.
    * @return parameters
   **/
-  @ApiModelProperty(value = "Free named parameters. They do not have any pupose, just to pass some data through assebly line workstations.")
+  @ApiModelProperty(required = true, value = "Free named parameters. They do not have any pupose, just to pass some data through assebly line workstations.")
+  @NotNull
 
 
   public Map<String, String> getParameters() {
@@ -87,9 +85,6 @@ public class WorkOrder   {
   }
 
   public WorkOrder addNextStationsItem(Workstation nextStationsItem) {
-    if (this.nextStations == null) {
-      this.nextStations = new ArrayList<>();
-    }
     this.nextStations.add(nextStationsItem);
     return this;
   }
@@ -98,7 +93,8 @@ public class WorkOrder   {
    * Get nextStations
    * @return nextStations
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(required = true, value = "")
+  @NotNull
 
   @Valid
 

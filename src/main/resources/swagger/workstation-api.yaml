@@ -57,6 +57,9 @@ parameters:
 definitions:
   Workstation:
     description: Workstation
+    required:
+    - name
+    - parameters # set as mandatory only to have it always initialize with empty map in Java.
     properties:
       name:
         type: string
@@ -69,13 +72,13 @@ definitions:
         additionalProperties:
           type: string
         description: Free named parameters. They do not have any pupose, just to pass some data through assebly line workstations.
-    required:
-    - name
 
   WorkOrder:
     description: Work order for a workstation.
     required:
     - workstationName
+    - nextStations # set as mandatory only to have it always initialize with empty array in Java.
+    - parameters # set as mandatory only to have it always initialize with empty map in Java.
     properties:
       workstationName:
         type: string

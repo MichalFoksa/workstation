@@ -50,7 +50,7 @@ public interface WorkOrdersApi {
     @ApiOperation(value = "", nickname = "createWorkOrder", notes = "Create a work order", response = CreateWorkOrderResponse.class, responseContainer = "List", tags={ "workOrders", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Success", response = CreateWorkOrderResponse.class, responseContainer = "List") })
-    @RequestMapping(value = "/workorder",
+    @RequestMapping(value = "/workorders",
         produces = { "application/json" }, 
         consumes = { "application/json" },
         method = RequestMethod.POST)

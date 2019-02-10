@@ -19,7 +19,7 @@ basePath: /
 #                                           Paths                              #
 ################################################################################
 paths:
-  /workorder:
+  /workorders:
     post:
       description: Create a work order
       tags:

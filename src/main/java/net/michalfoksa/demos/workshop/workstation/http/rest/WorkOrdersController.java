@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import net.michalfoksa.demos.workshop.workstation.context.RuntimeContext;
 import net.michalfoksa.demos.workshop.workstation.rest.api.WorkOrdersApi;
-import net.michalfoksa.demos.workshop.workstation.rest.model.CreateWorkorderResponse;
+import net.michalfoksa.demos.workshop.workstation.rest.model.CreateWorkOrderResponse;
 import net.michalfoksa.demos.workshop.workstation.rest.model.WorkOrder;
 import net.michalfoksa.demos.workshop.workstation.rest.model.Workstation;
 import net.michalfoksa.demos.workshop.workstation.service.WorkstationClientService;
@@ -43,13 +43,13 @@ public class WorkOrdersController implements WorkOrdersApi {
 
     @RequestMapping(value = "/workorders", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     @Override
-    public ResponseEntity<List<CreateWorkorderResponse>> createWorkOrder(@Valid WorkOrder workOrder) {
+    public ResponseEntity<List<CreateWorkOrderResponse>> createWorkOrder(@Valid WorkOrder workOrder) {
         log.debug("Request [workOrder={}]", workOrder);
 
-        List<CreateWorkorderResponse> response = new ArrayList<>();
+        List<CreateWorkOrderResponse> response = new ArrayList<>();
         // Add response of current workstation at beginning of the all responses
         // array.
-        response.add(new CreateWorkorderResponse().body(new Workstation()
+        response.add(new CreateWorkOrderResponse().body(new Workstation()
                 .name(workOrder.getWorkstationName() + " application: " + runtimeContext.getApplication())
                 .parameters(workOrder.getParameters())));
 

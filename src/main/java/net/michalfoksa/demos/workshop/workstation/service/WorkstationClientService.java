@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 import net.michalfoksa.demos.workshop.workstation.context.MessageContext;
 import net.michalfoksa.demos.workshop.workstation.http.feign.WorkOrdersApi;
-import net.michalfoksa.demos.workshop.workstation.rest.model.CreateWorkorderResponse;
+import net.michalfoksa.demos.workshop.workstation.rest.model.CreateWorkOrderResponse;
 import net.michalfoksa.demos.workshop.workstation.rest.model.WorkOrder;
 import net.michalfoksa.demos.workshop.workstation.rest.model.Workstation;
 
@@ -25,7 +25,7 @@ public class WorkstationClientService {
     @Inject
     private WorkOrdersApi workOrdersApi;
 
-    public List<CreateWorkorderResponse> createWorkOrder(URI workstationUri, WorkOrder workOrder) {
+    public List<CreateWorkOrderResponse> createWorkOrder(URI workstationUri, WorkOrder workOrder) {
         // Pass correlation ID to downstream service.
         HttpHeaders headers = new HttpHeaders();
         headers.add("x-correlation-id", messageContext.getCorrelationId());
@@ -34,8 +34,8 @@ public class WorkstationClientService {
             return workOrdersApi.createWorkOrder(workstationUri, headers, messageContext.isReturnContexts(), workOrder)
                     .getBody();
         } catch (Exception e) {
-            List<CreateWorkorderResponse> response = new ArrayList<>();
-            response.add(new CreateWorkorderResponse()
+            List<CreateWorkOrderResponse> response = new ArrayList<>();
+            response.add(new CreateWorkOrderResponse()
                     .body(new Workstation().name("Error occured connecting to " + workOrder.getWorkstationName())
                             .parameters(collectThrowables(e))));
             return response;

@@ -15,11 +15,11 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 
 /**
- * CreateWorkorderResponse
+ * CreateWorkOrderResponse
  */
 @Validated
 
-public class CreateWorkorderResponse   {
+public class CreateWorkOrderResponse   {
   @JsonProperty("body")
   private Workstation body = null;
 
@@ -30,7 +30,7 @@ public class CreateWorkorderResponse   {
   @Valid
   private Map<String, Object> runtimeContext = null;
 
-  public CreateWorkorderResponse body(Workstation body) {
+  public CreateWorkOrderResponse body(Workstation body) {
     this.body = body;
     return this;
   }
@@ -51,7 +51,7 @@ public class CreateWorkorderResponse   {
     this.body = body;
   }
 
-  public CreateWorkorderResponse messageContext(MessageContext messageContext) {
+  public CreateWorkOrderResponse messageContext(MessageContext messageContext) {
     this.messageContext = messageContext;
     return this;
   }
@@ -72,12 +72,12 @@ public class CreateWorkorderResponse   {
     this.messageContext = messageContext;
   }
 
-  public CreateWorkorderResponse runtimeContext(Map<String, Object> runtimeContext) {
+  public CreateWorkOrderResponse runtimeContext(Map<String, Object> runtimeContext) {
     this.runtimeContext = runtimeContext;
     return this;
   }
 
-  public CreateWorkorderResponse putRuntimeContextItem(String key, Object runtimeContextItem) {
+  public CreateWorkOrderResponse putRuntimeContextItem(String key, Object runtimeContextItem) {
     if (this.runtimeContext == null) {
       this.runtimeContext = new HashMap<>();
     }
@@ -109,10 +109,10 @@ public class CreateWorkorderResponse   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    CreateWorkorderResponse createWorkorderResponse = (CreateWorkorderResponse) o;
-    return Objects.equals(this.body, createWorkorderResponse.body) &&
-        Objects.equals(this.messageContext, createWorkorderResponse.messageContext) &&
-        Objects.equals(this.runtimeContext, createWorkorderResponse.runtimeContext);
+    CreateWorkOrderResponse createWorkOrderResponse = (CreateWorkOrderResponse) o;
+    return Objects.equals(this.body, createWorkOrderResponse.body) &&
+        Objects.equals(this.messageContext, createWorkOrderResponse.messageContext) &&
+        Objects.equals(this.runtimeContext, createWorkOrderResponse.runtimeContext);
   }
 
   @Override
@@ -123,7 +123,7 @@ public class CreateWorkorderResponse   {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class CreateWorkorderResponse {\n");
+    sb.append("class CreateWorkOrderResponse {\n");
     
     sb.append("    body: ").append(toIndentedString(body)).append("\n");
     sb.append("    messageContext: ").append(toIndentedString(messageContext)).append("\n");

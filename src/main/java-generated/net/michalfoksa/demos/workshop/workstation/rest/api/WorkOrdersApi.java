@@ -5,7 +5,7 @@
  */
 package net.michalfoksa.demos.workshop.workstation.rest.api;
 
-import net.michalfoksa.demos.workshop.workstation.rest.model.CreateWorkorderResponse;
+import net.michalfoksa.demos.workshop.workstation.rest.model.CreateWorkOrderResponse;
 import net.michalfoksa.demos.workshop.workstation.rest.model.WorkOrder;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.*;
@@ -47,14 +47,14 @@ public interface WorkOrdersApi {
         return getRequest().map(r -> r.getHeader("Accept"));
     }
 
-    @ApiOperation(value = "", nickname = "createWorkOrder", notes = "Create a work order", response = CreateWorkorderResponse.class, responseContainer = "List", tags={ "workOrders", })
+    @ApiOperation(value = "", nickname = "createWorkOrder", notes = "Create a work order", response = CreateWorkOrderResponse.class, responseContainer = "List", tags={ "workOrders", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Success", response = CreateWorkorderResponse.class, responseContainer = "List") })
+        @ApiResponse(code = 200, message = "Success", response = CreateWorkOrderResponse.class, responseContainer = "List") })
     @RequestMapping(value = "/workorder",
         produces = { "application/json" }, 
         consumes = { "application/json" },
         method = RequestMethod.POST)
-    default ResponseEntity<List<CreateWorkorderResponse>> createWorkOrder(@ApiParam(value = "Work order for a workstation" ,required=true )  @Valid @RequestBody WorkOrder workOrder) {
+    default ResponseEntity<List<CreateWorkOrderResponse>> createWorkOrder(@ApiParam(value = "Work order for a workstation" ,required=true )  @Valid @RequestBody WorkOrder workOrder) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
                 try {

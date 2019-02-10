@@ -37,7 +37,7 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/definitions/CreateWorkorderResponse'
+              $ref: '#/definitions/CreateWorkOrderResponse'
 
 ################################################################################
 #                                   Parameters                                 #
@@ -100,7 +100,7 @@ definitions:
         type: string
         description: Client generated ID to correlate all service requests in one business operation (transaction).
 
-  CreateWorkorderResponse:
+  CreateWorkOrderResponse:
     properties:
       body:
         $ref: '#/definitions/Workstation'

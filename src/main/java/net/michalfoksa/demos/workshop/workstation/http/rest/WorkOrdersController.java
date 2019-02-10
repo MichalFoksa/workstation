@@ -30,7 +30,7 @@ import net.michalfoksa.demos.workshop.workstation.service.WorkstationClientServi
 @RestController
 public class WorkOrdersController implements WorkOrdersApi {
 
-    Logger log = LoggerFactory.getLogger(WorkController.class);
+    Logger log = LoggerFactory.getLogger(WorkOrdersController.class);
 
     @Inject
     private RuntimeContext runtimeContext;

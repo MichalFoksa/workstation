@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
@@ -17,7 +18,8 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 import net.michalfoksa.demos.workshop.workstation.context.MessageContext;
 import net.michalfoksa.demos.workshop.workstation.context.RuntimeContext;
-import net.michalfoksa.demos.workshop.workstation.domain.GenericResponse;
+import net.michalfoksa.demos.workshop.workstation.http.rest.ModelConverter;
+import net.michalfoksa.demos.workshop.workstation.rest.model.CreateWorkOrderResponse;
 
 /***
  * Applicable for List<GenericResponse<?>> response types.
@@ -29,9 +31,9 @@ import net.michalfoksa.demos.workshop.workstation.domain.GenericResponse;
  *
  */
 @RestControllerAdvice(basePackages = "net.michalfoksa.demos.workshop.workstation.http.rest")
-public class GenericResponseListContextAppender implements ResponseBodyAdvice<Object> {
+public class ListCreateWorkOrderResponseContextAppender implements ResponseBodyAdvice<List<CreateWorkOrderResponse>> {
 
-    private final Logger log = LoggerFactory.getLogger(GenericResponseListContextAppender.class);
+    private final Logger log = LoggerFactory.getLogger(ListCreateWorkOrderResponseContextAppender.class);
 
     @Inject
     private MessageContext messageContext;
@@ -43,8 +45,8 @@ public class GenericResponseListContextAppender implements ResponseBodyAdvice<Ob
     public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
 
         // Is it desired to render context and is return type subclass of
-        // java.util.List and JSON message converter
-        if (messageContext.isReturnContexts() && List.class.isAssignableFrom(returnType.getParameterType())
+        // java.util.ResponseEntity and JSON message converter
+        if (messageContext.isReturnContexts() && ResponseEntity.class.isAssignableFrom(returnType.getParameterType())
                 && converterType.isAssignableFrom(MappingJackson2HttpMessageConverter.class)) {
             log.debug("[supports] [returnType={}, converterType={}]", returnType, converterType);
             return true;
@@ -53,29 +55,28 @@ public class GenericResponseListContextAppender implements ResponseBodyAdvice<Ob
     }
 
     @Override
-    public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType,
-            Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request,
-                    ServerHttpResponse response) {
+    public List<CreateWorkOrderResponse> beforeBodyWrite(List<CreateWorkOrderResponse> body, MethodParameter returnType,
+            MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType,
+            ServerHttpRequest request, ServerHttpResponse response) {
+
         log.debug(
                 "[beforeBodyWrite] [bodyClass={}, body={}, returnType={}, selectedContentType={}, selectedConverterType={}, request={}, response={}]",
                 body != null ? body.getClass() : "null", body, returnType, selectedContentType, selectedConverterType,
                         request, response);
 
         /**
-         * If body is List<GenericResponse<?>> set message and runtime contexts
-         * into the first (with index 0) element.
+         * If body is List<CreateWorkOrderResponse> set message and runtime
+         * contexts into the first (with index 0) element.
          */
-        // Mainly to check if body != null
-        if (body instanceof List<?>) {
-            List<?> list = (List<?>) body;
-            if (list.get(0) instanceof GenericResponse<?>) {
-                ((GenericResponse<?>) list.get(0)).messageContext(messageContext)
+        if (body != null) {
+            if (body.get(0) instanceof CreateWorkOrderResponse) {
+                body.get(0).messageContext(ModelConverter.toMessageContext(messageContext))
                 .runtimeContext(runtimeContext.getAllFieldsMap());
 
                 log.info("[beforeBodyWrite] Contexts appended.");
             } else {
-                log.debug("[beforeBodyWrite] First list element is not type of GenericResponse<?> [class={}]",
-                        list.get(0) != null ? list.get(0).getClass() : "null");
+                log.debug("[beforeBodyWrite] First list element is not type of CreateWorkOrderResponse [class={}]",
+                        body.get(0) != null ? body.get(0).getClass() : "null");
             }
         }
 

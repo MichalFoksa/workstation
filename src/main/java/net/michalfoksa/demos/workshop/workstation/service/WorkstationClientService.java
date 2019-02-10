@@ -1,4 +1,4 @@
-package net.michalfoksa.demos.workshop.workstation.api;
+package net.michalfoksa.demos.workshop.workstation.service;
 
 import java.net.URI;
 import java.util.ArrayList;
@@ -11,30 +11,31 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 
 import net.michalfoksa.demos.workshop.workstation.context.MessageContext;
-import net.michalfoksa.demos.workshop.workstation.domain.GenericResponse;
-import net.michalfoksa.demos.workshop.workstation.domain.WorkOrder;
-import net.michalfoksa.demos.workshop.workstation.domain.Workstation;
-import net.michalfoksa.demos.workshop.workstation.http.feign.WorkstationClient;
+import net.michalfoksa.demos.workshop.workstation.http.feign.WorkOrdersApi;
+import net.michalfoksa.demos.workshop.workstation.rest.model.CreateWorkOrderResponse;
+import net.michalfoksa.demos.workshop.workstation.rest.model.WorkOrder;
+import net.michalfoksa.demos.workshop.workstation.rest.model.Workstation;
 
 @Service
-public class WorkstationApi {
+public class WorkstationClientService {
 
     @Inject
     private MessageContext messageContext;
 
     @Inject
-    private WorkstationClient workstationClient;
+    private WorkOrdersApi workOrdersApi;
 
-    public List<GenericResponse<Workstation>> orderWork(URI workstationUri, WorkOrder workOrder) {
+    public List<CreateWorkOrderResponse> createWorkOrder(URI workstationUri, WorkOrder workOrder) {
         // Pass correlation ID to downstream service.
         HttpHeaders headers = new HttpHeaders();
         headers.add("x-correlation-id", messageContext.getCorrelationId());
 
         try {
-            return workstationClient.orderWork(workstationUri, headers, messageContext.isReturnContexts(), workOrder);
+            return workOrdersApi.createWorkOrder(workstationUri, headers, messageContext.isReturnContexts(), workOrder)
+                    .getBody();
         } catch (Exception e) {
-            List<GenericResponse<Workstation>> response = new ArrayList<>();
-            response.add(new GenericResponse<Workstation>()
+            List<CreateWorkOrderResponse> response = new ArrayList<>();
+            response.add(new CreateWorkOrderResponse()
                     .body(new Workstation().name("Error occured connecting to " + workOrder.getWorkstationName())
                             .parameters(collectThrowables(e))));
             return response;

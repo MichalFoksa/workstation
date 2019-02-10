@@ -6,29 +6,28 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.inject.Inject;
+import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.MediaType;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import net.michalfoksa.demos.workshop.workstation.api.WorkstationApi;
 import net.michalfoksa.demos.workshop.workstation.context.RuntimeContext;
-import net.michalfoksa.demos.workshop.workstation.domain.GenericResponse;
-import net.michalfoksa.demos.workshop.workstation.domain.WorkOrder;
-import net.michalfoksa.demos.workshop.workstation.domain.Workstation;
+import net.michalfoksa.demos.workshop.workstation.rest.api.WorkOrdersApi;
+import net.michalfoksa.demos.workshop.workstation.rest.model.CreateWorkOrderResponse;
+import net.michalfoksa.demos.workshop.workstation.rest.model.WorkOrder;
+import net.michalfoksa.demos.workshop.workstation.rest.model.Workstation;
+import net.michalfoksa.demos.workshop.workstation.service.WorkstationClientService;
 
 @RestController
-@RequestMapping(path = "/works")
-public class WorkController {
+public class WorkOrdersController implements WorkOrdersApi {
 
-    private final Logger log = LoggerFactory.getLogger(WorkController.class);
+    Logger log = LoggerFactory.getLogger(WorkOrdersController.class);
 
     @Inject
     private RuntimeContext runtimeContext;
@@ -37,38 +36,35 @@ public class WorkController {
     private UriResolver uriResolver;
 
     @Inject
-    private WorkstationApi workstationApi;
+    private WorkstationClientService workstationService;
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public List<GenericResponse<Workstation>> createWorkOrder(@RequestBody WorkOrder request) {
-        log.debug("Request [request={}]", request);
+    @Override
+    public ResponseEntity<List<CreateWorkOrderResponse>> createWorkOrder(@Valid WorkOrder workOrder) {
+        log.debug("Request [workOrder={}]", workOrder);
 
-        List<GenericResponse<Workstation>> response = new ArrayList<>();
+        List<CreateWorkOrderResponse> response = new ArrayList<>();
         // Add response of current workstation at beginning of the all responses
         // array.
-        response.add(new GenericResponse<Workstation>().body(new Workstation()
-                .name(request.getWorkstationName() + " application: " + runtimeContext.getApplication())
-                .parameters(request.getParameters())));
+        response.add(new CreateWorkOrderResponse().body(new Workstation()
+                .name(workOrder.getWorkstationName() + " application: " + runtimeContext.getApplication())
+                .parameters(workOrder.getParameters())));
 
-        if (request.getNextStations().size() > 0) {
-            Workstation nextStation = request.getNextStations().get(0);
+        if (workOrder.getNextStations().size() > 0) {
+            Workstation nextStation = workOrder.getNextStations().get(0);
             log.info("Next station [name={}]", nextStation.getName());
 
             // Create list of workstations following after next one.
             // Remove next workstation form list all following workstations
-            List<Workstation> nextStations = request.getNextStations().stream()
-                    .filter(station -> !nextStation.equals(station))
-                    .collect(Collectors.toList());
+            List<Workstation> nextStations = workOrder.getNextStations().stream()
+                    .filter(station -> !nextStation.equals(station)).collect(Collectors.toList());
 
             // Call next workstation
-            response.addAll(workstationApi.orderWork(uriResolver.getUri(nextStation),
-                    new WorkOrder()
-                    .workstationName(nextStation.getName())
-                    .parameters(nextStation.getParameters())
+            response.addAll(workstationService.createWorkOrder(uriResolver.getUri(nextStation),
+                    new WorkOrder().workstationName(nextStation.getName()).parameters(nextStation.getParameters())
                     .nextStations(nextStations)));
         }
 
-        return response;
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     /***

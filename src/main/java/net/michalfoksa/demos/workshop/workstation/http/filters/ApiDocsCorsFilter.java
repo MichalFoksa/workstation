@@ -13,10 +13,13 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import springfox.documentation.swagger2.web.Swagger2Controller;
+
 @Component
 public class ApiDocsCorsFilter implements javax.servlet.Filter {
 
-    @Value("${springfox.documentation.swagger.v2.path:#{/api-docs}}")
+    // Default to Swagger2Controller.DEFAULT_URL
+    @Value("${springfox.documentation.swagger.v2.path:" + Swagger2Controller.DEFAULT_URL + "}")
     private String apiDocsPath;
 
     @Override

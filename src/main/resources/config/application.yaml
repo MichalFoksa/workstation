@@ -1,3 +1,6 @@
+################################################################################
+###                     Dependency configuration                             ###
+################################################################################
 spring:
   application:
     name: workstation
@@ -18,6 +21,9 @@ management:
 # API documentation in JSON format
 springfox.documentation.swagger.v2.path: /api-docs
 
+################################################################################
+###                      Custom directives                                   ###
+################################################################################
 service:
   discovery:
     client:
@@ -25,7 +31,9 @@ service:
       # It is also used to discover TCP port
       defaultprototol: http
 
-# Log levels
+################################################################################
+###                       Logging configuration                              ###
+################################################################################
 logging.level: INFO
 logging.level.org.springframework: INFO
 logging.level.org.apache: WARN

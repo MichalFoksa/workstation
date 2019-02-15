@@ -93,8 +93,8 @@ public class WorkOrdersController implements WorkOrdersApi {
                  * Service discovery using Kubernetes environment variables.
                  * Host and port variables format is:
                  *
-                 * [SERVESE_NAME]_SERVICE_HOST
-                 * [SERVESE_NAME]_SERVICE_PORT_[PORT_NAME]
+                 * [SERVICE_NAME]_SERVICE_HOST
+                 * [SERVICE_NAME]_SERVICE_PORT_[PORT_NAME]
                  */
                 String host = System.getenv(workstation.getName().toUpperCase() + "_SERVICE_HOST");
                 String port = System

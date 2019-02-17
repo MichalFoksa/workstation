@@ -1,9 +1,19 @@
-# Log levels
+################################################################################
+###                     Dependency configuration                             ###
+################################################################################
+
+################################################################################
+###                      Custom directives                                   ###
+################################################################################
+
+################################################################################
+###                       Logging configuration                              ###
+################################################################################
 # logging.level.org.springframework.web: DEBUG
 logging.level.org.springframework.web.servlet.DispatcherServlet: DEBUG
 
 # Springfox
 logging.level.springfox.documentation: DEBUG
 
-# Current application
+# This application
 logging.level.net.michalfoksa.demos.workshop.workstation.http.rest.intercept: DEBUG

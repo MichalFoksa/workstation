@@ -96,9 +96,13 @@ public class WorkOrdersController implements WorkOrdersApi {
                  * [SERVICE_NAME]_SERVICE_HOST
                  * [SERVICE_NAME]_SERVICE_PORT_[PORT_NAME]
                  */
-                String host = System.getenv(workstation.getName().toUpperCase() + "_SERVICE_HOST");
+
+                // Replace each dash with underscore
+                String normalizeServiceName = workstation.getName().replaceAll("-", "_").toUpperCase();
+
+                String host = System.getenv(normalizeServiceName + "_SERVICE_HOST");
                 String port = System
-                        .getenv(workstation.getName().toUpperCase() + "_SERVICE_PORT_" + defaultProtocol.toUpperCase());
+                        .getenv(normalizeServiceName + "_SERVICE_PORT_" + defaultProtocol.toUpperCase());
                 return URI.create(defaultProtocol + "://" + host + ":" + port);
             }
             return URI.create(workstation.getUrl());

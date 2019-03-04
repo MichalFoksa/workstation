@@ -8,8 +8,10 @@ metadata:
 {{- end }}
   labels:
     chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
-{{- if .Values.service.annotations }}
   annotations:
+    swagger.io/apidocs.poll: true
+    swagger.io/apidocs.path: /api-docs
+{{- if .Values.service.annotations }}
 {{ toYaml .Values.service.annotations | indent 4 }}
 {{- end }}
 spec:

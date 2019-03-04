@@ -12,8 +12,8 @@ metadata:
   annotations:
 {{ toYaml .Values.service.annotations | indent 4 }}
 {{- end }}
-    swagger.io/apidocs/poll: true
-    swagger.io/apidocs/path: /api-docs
+    swagger.io/apidocs.poll: true
+    swagger.io/apidocs.path: /api-docs
 spec:
   type: {{ .Values.service.type }}
   ports:

@@ -18,7 +18,7 @@ management:
         # Expose all actuator endpoints
         include: '*'
 
-# API documentation in JSON format
+# API documentation in JSON format. Default value is /v2/api-docs
 springfox.documentation.swagger.v2.path: /api-docs
 
 ################################################################################
@@ -35,7 +35,7 @@ service:
 ###                       Logging configuration                              ###
 ################################################################################
 logging.level: INFO
-logging.level.org.springframework: INFO
+logging.level.org.springframework: DEBUG
 logging.level.org.apache: WARN
 logging.level.org.apache.tomcat: INFO
 logging.level.org.hibernate: INFO

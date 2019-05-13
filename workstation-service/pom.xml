@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>net.michalfoksa.demos.workshop</groupId>
+		<groupId>net.michalfoksa.demo.workshop</groupId>
 		<artifactId>workstation</artifactId>
 		<version>${revision}</version>
 		<relativePath>..</relativePath>
@@ -18,7 +18,7 @@
 
 		<!-- This service API -->
 		<dependency>
-			<groupId>net.michalfoksa.demos.workshop</groupId>
+			<groupId>net.michalfoksa.demo.workshop</groupId>
 			<artifactId>workstation-api</artifactId>
 			<version>${revision}</version>
 		</dependency>

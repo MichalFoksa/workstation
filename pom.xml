@@ -11,7 +11,7 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 
-	<groupId>net.michalfoksa.demos.workshop</groupId>
+	<groupId>net.michalfoksa.demo.workshop</groupId>
 	<artifactId>workstation</artifactId>
 	<version>${revision}</version>
 	<description>Demo project for Spring Boot</description>
@@ -26,7 +26,7 @@
 		<springfox.version>2.9.2</springfox.version>
 		<swagger.annotations.version>1.5.20</swagger.annotations.version>
 		<swagger-codegen-plugin.version>2.4.1</swagger-codegen-plugin.version>
-		<default.swagger.package>net.michalfoksa.demos.workshop.workstation.rest</default.swagger.package>
+		<default.swagger.package>net.michalfoksa.demo.workshop.workstation.rest</default.swagger.package>
 	</properties>
 
 	<modules>

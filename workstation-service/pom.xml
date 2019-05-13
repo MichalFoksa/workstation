@@ -14,7 +14,6 @@
 	<groupId>net.michalfoksa.demos.workshop</groupId>
 	<artifactId>workstation-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>workstation</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>

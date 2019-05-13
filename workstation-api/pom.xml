@@ -111,7 +111,7 @@
 				<configuration>
 					<filesets>
 						<fileset>
-							<directory>${project.basedir}/src/main/java-generated</directory>
+							<directory>${project.basedir}/src/main/java-generated/**</directory>
 						</fileset>
 					</filesets>
 				</configuration>

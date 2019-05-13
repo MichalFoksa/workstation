@@ -21,13 +21,15 @@
 		<java.version>1.8</java.version>
 		<spring-cloud.version>Greenwich.RC2</spring-cloud.version>
 		<javax.inject.version>1</javax.inject.version>
+		<!-- Swagger and Swagger codegen related config -->
 		<springfox.version>2.9.2</springfox.version>
-		<!-- Swagger codegen related config -->
+		<swagger.annotations.version>1.5.20</swagger.annotations.version>
 		<swagger-codegen-plugin.version>2.4.1</swagger-codegen-plugin.version>
 		<default.swagger.package>net.michalfoksa.demos.workshop.workstation.rest</default.swagger.package>
 	</properties>
 
 	<modules>
+		<module>workstation-api</module>
 		<module>workstation-service</module>
 	</modules>
 </project>

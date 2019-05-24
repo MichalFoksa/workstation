@@ -12,11 +12,18 @@ management:
   # To change which endpoints are exposed, use 
   # management.endpoints.web.exposure.include and  
   # management.endpoints.web.exposure.exclude properties.
+  # Note: PLURAL - endpoints
   endpoints:
     web:
       exposure:
         # Expose all actuator endpoints
         include: '*'
+  # Note: SINGULAR - endpoint
+  endpoint:
+    health:
+      # When to show full health details, like disk space, db healt, etc.
+      # By default simple 'status: UP' is displayed.
+      show-details: always
 
 # API documentation in JSON format. Default value is /v2/api-docs
 springfox.documentation.swagger.v2.path: /api-docs

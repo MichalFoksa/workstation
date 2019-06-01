@@ -63,10 +63,10 @@ public class WorkOrder   {
   }
 
   /**
-   * Free named parameters. They do not have any pupose, just to pass some data through assebly line workstations.
+   * Free named parameters. Their only pupose is to to pass some data through assebly line workstations.
    * @return parameters
   */
-  @ApiModelProperty(required = true, value = "Free named parameters. They do not have any pupose, just to pass some data through assebly line workstations.")
+  @ApiModelProperty(required = true, value = "Free named parameters. Their only pupose is to to pass some data through assebly line workstations.")
   @NotNull
 
 

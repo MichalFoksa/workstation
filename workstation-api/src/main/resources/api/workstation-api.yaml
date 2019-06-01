@@ -1,4 +1,4 @@
-swagger: '2.0'
+openapi: 3.0.0
 
 ################################################################################
 #                              API Information                                 #
@@ -7,14 +7,8 @@ info:
   version: v1
   title: Simple task API
   description: API for managing user tasks
-
-################################################################################
-#                  Host, Base Path, Schemes and Content Types                  #
-################################################################################
-host: localhost
-schemes:
-  - http
-basePath: /
+servers:
+  - url: http://localhost/
 ################################################################################
 #                                           Paths                              #
 ################################################################################
@@ -25,89 +19,83 @@ paths:
       tags:
         - workOrders
       operationId: createWorkOrder
-      consumes:
-        - application/json
-      produces:
-        - application/json
-      parameters:
-        - $ref: '#/parameters/workOrder'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/WorkOrder"
+        description: Work order for a workstation
+        required: true
       responses:
         "200":
           description: Success
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/CreateWorkOrderResponse'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CreateWorkOrderResponse"
 
 ################################################################################
-#                                   Parameters                                 #
+#                                 Components                                   #
 ################################################################################
-parameters:
-  workOrder:
-    name: workOrder
-    in: body
-    description: Work order for a workstation
-    required: true
-    schema:
-      $ref: '#/definitions/WorkOrder'
-
-################################################################################
-#                                 Definitions                                  #
-################################################################################
-definitions:
-  Workstation:
-    description: Workstation
-    required:
-    - name
-    - parameters # set as mandatory only to have it always initialize with empty map in Java.
-    properties:
-      name:
-        type: string
-        description: Name of the workstation
-      url:
-        type: string
-        description: Optional URL of the workstation. Is is appended with `/works`.
-      parameters:
-        type: object
-        additionalProperties:
+components:
+  schemas:
+    Workstation:
+      description: Workstation
+      required:
+        - name
+        - parameters
+      properties:
+        name:
           type: string
-        description: Free named parameters. They do not have any pupose, just to pass some data through assebly line workstations.
-
-  WorkOrder:
-    description: Work order for a workstation.
-    required:
-    - workstationName
-    - nextStations # set as mandatory only to have it always initialize with empty array in Java.
-    - parameters # set as mandatory only to have it always initialize with empty map in Java.
-    properties:
-      workstationName:
-        type: string
-        description: 'Name of the workstation which is supposed to execute the work, e.g.: car body.'
-      parameters:
-        type: object
-        additionalProperties:
+          description: Name of the workstation
+        url:
           type: string
-        description: Free named parameters. They do not have any pupose, just to pass some data through assebly line workstations.
-      nextStations:
-        type: array
-        items:
-          $ref: '#/definitions/Workstation'
-
-  MessageContext:
-    description: Describes how a request or response was created.
-    properties:
-      correlationId:
-        type: string
-        description: Client generated ID to correlate all service requests in one business operation (transaction).
-
-  CreateWorkOrderResponse:
-    properties:
-      body:
-        $ref: '#/definitions/Workstation'
-      messageContext:
-        $ref: '#/definitions/MessageContext'
-      runtimeContext:
-        type: object
-        additionalProperties:
+          description: Optional URL of the workstation. Is is appended with `/works`.
+        parameters:
           type: object
-        description: Describes runtime environment of a pod or container executing the request.
+          additionalProperties:
+            type: string
+          description: Free named parameters. They do not have any pupose, just to pass
+            some data through assebly line workstations.
+    WorkOrder:
+      description: Work order for a workstation.
+      required:
+        - workstationName
+        - nextStations
+        - parameters
+      properties:
+        workstationName:
+          type: string
+          description: "Name of the workstation which is supposed to execute the work,
+            e.g.: car body."
+        parameters:
+          type: object
+          additionalProperties:
+            type: string
+          description: Free named parameters. Their only pupose is to to pass
+            some data through assebly line workstations.
+        nextStations:
+          type: array
+          items:
+            $ref: "#/components/schemas/Workstation"
+    MessageContext:
+      description: Describes how a request or response was created.
+      properties:
+        correlationId:
+          type: string
+          description: Client generated ID to correlate all service requests in one
+            business operation (transaction).
+    CreateWorkOrderResponse:
+      properties:
+        body:
+          $ref: "#/components/schemas/Workstation"
+        messageContext:
+          $ref: "#/components/schemas/MessageContext"
+        runtimeContext:
+          type: object
+          additionalProperties:
+            type: object
+          description: Describes runtime environment of a pod or container executing the
+            request.

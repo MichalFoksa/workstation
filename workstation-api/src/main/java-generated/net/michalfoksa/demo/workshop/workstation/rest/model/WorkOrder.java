@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import net.michalfoksa.demo.workshop.workstation.rest.model.Workstation;
-import org.springframework.validation.annotation.Validated;
+import org.openapitools.jackson.nullable.JsonNullable;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 
@@ -18,11 +18,10 @@ import javax.validation.constraints.*;
  * Work order for a workstation.
  */
 @ApiModel(description = "Work order for a workstation.")
-@Validated
 
 public class WorkOrder   {
   @JsonProperty("workstationName")
-  private String workstationName = null;
+  private String workstationName;
 
   @JsonProperty("parameters")
   @Valid
@@ -40,7 +39,7 @@ public class WorkOrder   {
   /**
    * Name of the workstation which is supposed to execute the work, e.g.: car body.
    * @return workstationName
-  **/
+  */
   @ApiModelProperty(required = true, value = "Name of the workstation which is supposed to execute the work, e.g.: car body.")
   @NotNull
 
@@ -66,7 +65,7 @@ public class WorkOrder   {
   /**
    * Free named parameters. They do not have any pupose, just to pass some data through assebly line workstations.
    * @return parameters
-  **/
+  */
   @ApiModelProperty(required = true, value = "Free named parameters. They do not have any pupose, just to pass some data through assebly line workstations.")
   @NotNull
 
@@ -92,7 +91,7 @@ public class WorkOrder   {
   /**
    * Get nextStations
    * @return nextStations
-  **/
+  */
   @ApiModelProperty(required = true, value = "")
   @NotNull
 

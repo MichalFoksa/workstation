@@ -10,14 +10,13 @@ import java.util.List;
 import java.util.Map;
 import net.michalfoksa.demo.workshop.workstation.rest.model.MessageContext;
 import net.michalfoksa.demo.workshop.workstation.rest.model.Workstation;
-import org.springframework.validation.annotation.Validated;
+import org.openapitools.jackson.nullable.JsonNullable;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 
 /**
  * CreateWorkOrderResponse
  */
-@Validated
 
 public class CreateWorkOrderResponse   {
   @JsonProperty("body")
@@ -38,7 +37,7 @@ public class CreateWorkOrderResponse   {
   /**
    * Get body
    * @return body
-  **/
+  */
   @ApiModelProperty(value = "")
 
   @Valid
@@ -59,7 +58,7 @@ public class CreateWorkOrderResponse   {
   /**
    * Get messageContext
    * @return messageContext
-  **/
+  */
   @ApiModelProperty(value = "")
 
   @Valid
@@ -88,7 +87,7 @@ public class CreateWorkOrderResponse   {
   /**
    * Describes runtime environment of a pod or container executing the request.
    * @return runtimeContext
-  **/
+  */
   @ApiModelProperty(value = "Describes runtime environment of a pod or container executing the request.")
 
 

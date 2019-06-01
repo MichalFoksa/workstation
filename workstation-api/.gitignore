@@ -1,6 +1,6 @@
 /target/
 !.mvn/wrapper/maven-wrapper.jar
-.swagger-codegen
+.openapi-generator
 
 ### STS ###
 .apt_generated

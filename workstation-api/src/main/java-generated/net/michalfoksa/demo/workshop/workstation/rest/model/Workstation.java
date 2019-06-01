@@ -8,7 +8,7 @@ import io.swagger.annotations.ApiModelProperty;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.springframework.validation.annotation.Validated;
+import org.openapitools.jackson.nullable.JsonNullable;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 
@@ -16,14 +16,13 @@ import javax.validation.constraints.*;
  * Workstation
  */
 @ApiModel(description = "Workstation")
-@Validated
 
 public class Workstation   {
   @JsonProperty("name")
-  private String name = null;
+  private String name;
 
   @JsonProperty("url")
-  private String url = null;
+  private String url;
 
   @JsonProperty("parameters")
   @Valid
@@ -37,7 +36,7 @@ public class Workstation   {
   /**
    * Name of the workstation
    * @return name
-  **/
+  */
   @ApiModelProperty(required = true, value = "Name of the workstation")
   @NotNull
 
@@ -58,7 +57,7 @@ public class Workstation   {
   /**
    * Optional URL of the workstation. Is is appended with `/works`.
    * @return url
-  **/
+  */
   @ApiModelProperty(value = "Optional URL of the workstation. Is is appended with `/works`.")
 
 
@@ -83,7 +82,7 @@ public class Workstation   {
   /**
    * Free named parameters. They do not have any pupose, just to pass some data through assebly line workstations.
    * @return parameters
-  **/
+  */
   @ApiModelProperty(required = true, value = "Free named parameters. They do not have any pupose, just to pass some data through assebly line workstations.")
   @NotNull
 

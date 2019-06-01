@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import org.springframework.validation.annotation.Validated;
+import org.openapitools.jackson.nullable.JsonNullable;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 
@@ -13,11 +13,10 @@ import javax.validation.constraints.*;
  * Describes how a request or response was created.
  */
 @ApiModel(description = "Describes how a request or response was created.")
-@Validated
 
 public class MessageContext   {
   @JsonProperty("correlationId")
-  private String correlationId = null;
+  private String correlationId;
 
   public MessageContext correlationId(String correlationId) {
     this.correlationId = correlationId;
@@ -27,7 +26,7 @@ public class MessageContext   {
   /**
    * Client generated ID to correlate all service requests in one business operation (transaction).
    * @return correlationId
-  **/
+  */
   @ApiModelProperty(value = "Client generated ID to correlate all service requests in one business operation (transaction).")
 
 

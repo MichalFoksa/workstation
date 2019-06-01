@@ -25,8 +25,9 @@
 		<!-- Swagger and Swagger codegen related config -->
 		<springfox.version>2.9.2</springfox.version>
 		<swagger.annotations.version>1.5.20</swagger.annotations.version>
-		<swagger-codegen-plugin.version>2.4.1</swagger-codegen-plugin.version>
-		<default.swagger.package>net.michalfoksa.demo.workshop.workstation.rest</default.swagger.package>
+		<openapi-jackson-databind.version>0.1.0</openapi-jackson-databind.version>
+		<openapi-generator-plugin.version>4.0.0</openapi-generator-plugin.version>
+		<root.api.package>net.michalfoksa.demo.workshop.workstation.rest</root.api.package>
 	</properties>
 
 	<modules>

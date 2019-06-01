@@ -36,13 +36,13 @@ service:
     client:
       # Protocol used to call downstream services.
       # It is also used to discover TCP port
-      defaultprototol: http
+      default-prototol: http
 
 ################################################################################
 ###                       Logging configuration                              ###
 ################################################################################
 logging.level: INFO
-logging.level.org.springframework: DEBUG
+logging.level.org.springframework: INFO
 logging.level.org.apache: WARN
 logging.level.org.apache.tomcat: INFO
 logging.level.org.hibernate: INFO

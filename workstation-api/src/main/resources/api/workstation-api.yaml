@@ -50,15 +50,21 @@ components:
         name:
           type: string
           description: Name of the workstation
+          example: paintshop
         url:
           type: string
           description: Optional URL of the workstation. Is is appended with `/works`.
+          example: http://paintshop:8080
         parameters:
           type: object
           additionalProperties:
             type: string
           description: Free named parameters. They do not have any pupose, just to pass
             some data through assebly line workstations.
+          example:
+            engine: V8
+            transmission: automatic
+            bodyType: sedan
     WorkOrder:
       description: Work order for a workstation.
       required:
@@ -68,14 +74,18 @@ components:
       properties:
         workstationName:
           type: string
-          description: "Name of the workstation which is supposed to execute the work,
-            e.g.: car body."
+          description: Name of the workstation which is supposed to execute the work.
+          example: bodyshop
         parameters:
           type: object
           additionalProperties:
             type: string
           description: Free named parameters. Their only pupose is to to pass
             some data through assebly line workstations.
+          example:
+            engine: V8
+            transmission: automatic
+            bodyType: sedan
         nextStations:
           type: array
           items:

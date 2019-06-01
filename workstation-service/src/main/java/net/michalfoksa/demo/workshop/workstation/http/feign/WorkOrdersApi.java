@@ -20,7 +20,7 @@ public interface WorkOrdersApi {
 
     @PostMapping(value = "/workorders", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<List<CreateWorkOrderResponse>> createWorkOrder(URI workstationUri,
-            @RequestHeader HttpHeaders headers, @RequestParam boolean returnContexts, @RequestBody WorkOrder workOrder);
+            @RequestHeader HttpHeaders headers, @RequestParam String returnContexts, @RequestBody WorkOrder workOrder);
 
 }
 

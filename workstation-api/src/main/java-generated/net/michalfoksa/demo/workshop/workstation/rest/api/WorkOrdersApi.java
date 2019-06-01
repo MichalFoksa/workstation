@@ -47,7 +47,7 @@ public interface WorkOrdersApi {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    ApiUtil.setExampleResponse(request, "application/json", "{  \"runtimeContext\" : {    \"key\" : \"{}\"  },  \"messageContext\" : {    \"correlationId\" : \"correlationId\"  },  \"body\" : {    \"name\" : \"name\",    \"parameters\" : {      \"key\" : \"parameters\"    },    \"url\" : \"url\"  }}");
+                    ApiUtil.setExampleResponse(request, "application/json", "{  \"runtimeContext\" : {    \"key\" : \"{}\"  },  \"messageContext\" : {    \"correlationId\" : \"correlationId\"  },  \"body\" : {    \"name\" : \"paintshop\",    \"parameters\" : {      \"engine\" : \"V8\",      \"transmission\" : \"automatic\",      \"bodyType\" : \"sedan\"    },    \"url\" : \"http://paintshop:8080\"  }}");
                     break;
                 }
             }

@@ -37,10 +37,10 @@ public class WorkOrder   {
   }
 
   /**
-   * Name of the workstation which is supposed to execute the work, e.g.: car body.
+   * Name of the workstation which is supposed to execute the work.
    * @return workstationName
   */
-  @ApiModelProperty(required = true, value = "Name of the workstation which is supposed to execute the work, e.g.: car body.")
+  @ApiModelProperty(example = "bodyshop", required = true, value = "Name of the workstation which is supposed to execute the work.")
   @NotNull
 
 
@@ -66,7 +66,7 @@ public class WorkOrder   {
    * Free named parameters. Their only pupose is to to pass some data through assebly line workstations.
    * @return parameters
   */
-  @ApiModelProperty(required = true, value = "Free named parameters. Their only pupose is to to pass some data through assebly line workstations.")
+  @ApiModelProperty(example = "{\"engine\":\"V8\",\"transmission\":\"automatic\",\"bodyType\":\"sedan\"}", required = true, value = "Free named parameters. Their only pupose is to to pass some data through assebly line workstations.")
   @NotNull
 
 

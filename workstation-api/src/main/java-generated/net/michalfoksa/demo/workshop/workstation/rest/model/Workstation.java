@@ -37,7 +37,7 @@ public class Workstation   {
    * Name of the workstation
    * @return name
   */
-  @ApiModelProperty(required = true, value = "Name of the workstation")
+  @ApiModelProperty(example = "paintshop", required = true, value = "Name of the workstation")
   @NotNull
 
 
@@ -58,7 +58,7 @@ public class Workstation   {
    * Optional URL of the workstation. Is is appended with `/works`.
    * @return url
   */
-  @ApiModelProperty(value = "Optional URL of the workstation. Is is appended with `/works`.")
+  @ApiModelProperty(example = "http://paintshop:8080", value = "Optional URL of the workstation. Is is appended with `/works`.")
 
 
   public String getUrl() {
@@ -83,7 +83,7 @@ public class Workstation   {
    * Free named parameters. They do not have any pupose, just to pass some data through assebly line workstations.
    * @return parameters
   */
-  @ApiModelProperty(required = true, value = "Free named parameters. They do not have any pupose, just to pass some data through assebly line workstations.")
+  @ApiModelProperty(example = "{\"engine\":\"V8\",\"transmission\":\"automatic\",\"bodyType\":\"sedan\"}", required = true, value = "Free named parameters. They do not have any pupose, just to pass some data through assebly line workstations.")
   @NotNull
 
 

@@ -3,7 +3,7 @@ package net.michalfoksa.demo.workshop.workstation.context;
 public class MessageContextImpl implements MessageContext {
 
     private String correlationId;
-    private boolean returnContexts = true;
+    private boolean returnContexts = false;
 
     @Override
     public String getCorrelationId() {

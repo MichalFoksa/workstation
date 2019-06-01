@@ -31,8 +31,8 @@ public class WorkstationClientService {
         headers.add("x-correlation-id", messageContext.getCorrelationId());
 
         try {
-            return workOrdersApi.createWorkOrder(workstationUri, headers, messageContext.isReturnContexts(), workOrder)
-                    .getBody();
+            return workOrdersApi.createWorkOrder(workstationUri, headers,
+                    messageContext.isReturnContexts() ? "true" : null, workOrder).getBody();
         } catch (Exception e) {
             List<CreateWorkOrderResponse> response = new ArrayList<>();
             response.add(new CreateWorkOrderResponse()

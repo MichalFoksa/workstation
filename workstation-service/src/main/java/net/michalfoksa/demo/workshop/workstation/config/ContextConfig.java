@@ -34,11 +34,10 @@ public class ContextConfig {
         MessageContextImpl messageContext = new MessageContextImpl()
                 .correlationId(request.getHeader("x-correlation-id") != null ? request.getHeader("x-correlation-id")
                         : UUID.randomUUID().toString())
-                .returnContexts(true);
+                .returnContexts(false);
 
-        String returnContexts = request.getParameter("returnContexts");
-        if (returnContexts != null && "false".equals(returnContexts.toLowerCase())) {
-            messageContext.setReturnContexts(false);
+        if (request.getParameter("returnContexts") != null) {
+            messageContext.setReturnContexts(true);
         }
 
         log.debug("Message context [messageContext={}]", messageContext);

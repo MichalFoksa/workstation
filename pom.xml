@@ -22,7 +22,7 @@
 		<java.version>11</java.version>
 		<spring-cloud.version>Greenwich.RC2</spring-cloud.version>
 		<javax.inject.version>1</javax.inject.version>
-		<!-- Swagger and Swagger codegen related config -->
+		<!-- Swagger and API codegen related config -->
 		<springfox.version>2.9.2</springfox.version>
 		<swagger.annotations.version>1.5.20</swagger.annotations.version>
 		<openapi-jackson-databind.version>0.1.0</openapi-jackson-databind.version>

@@ -55,10 +55,10 @@ public class Workstation   {
   }
 
   /**
-   * Optional URL of the workstation. Is is appended with `/works`.
+   * Optional URL of the workstation. Is is appended with `/works`. Url parameter is usefull in local development. When present it is used to contact the workstation instead of other resolver/discovery mechanism.
    * @return url
   */
-  @ApiModelProperty(example = "http://paintshop:8080", value = "Optional URL of the workstation. Is is appended with `/works`.")
+  @ApiModelProperty(example = "http://paintshop:8080", value = "Optional URL of the workstation. Is is appended with `/works`. Url parameter is usefull in local development. When present it is used to contact the workstation instead of other resolver/discovery mechanism.")
 
 
   public String getUrl() {

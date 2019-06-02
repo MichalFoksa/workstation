@@ -1,7 +1,9 @@
 package net.michalfoksa.demo.workshop.workstation.http.rest;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.inject.Inject;
@@ -39,6 +41,18 @@ public class WorkOrdersController implements WorkOrdersApi {
     public ResponseEntity<List<CreateWorkOrderResponse>> createWorkOrder(@Valid WorkOrder workOrder) {
         log.debug("Request [workOrder={}]", workOrder);
 
+
+        List<CreateWorkOrderResponse> followingStationsResponse = nextWorkstation(workOrder).map(nextStation -> {
+            log.info("Next station [name={}]", nextStation.getName());
+
+            List<Workstation> followingStations = prepareFollowingWorkstations(nextStation, workOrder);
+
+            // Call next workstation
+            return workstationService.createWorkOrder(uriResolver.getUri(nextStation),
+                    new WorkOrder().workstationName(nextStation.getName()).parameters(nextStation.getParameters())
+                    .followingStations(followingStations));
+        }).orElse(Collections.emptyList());
+
         List<CreateWorkOrderResponse> response = new ArrayList<>();
         // Add response of current workstation at beginning of the all responses
         // array.
@@ -46,22 +60,25 @@ public class WorkOrdersController implements WorkOrdersApi {
                 .name(workOrder.getWorkstationName() + " application: " + runtimeContext.getApplication())
                 .parameters(workOrder.getParameters())));
 
-        if (workOrder.getNextStations().size() > 0) {
-            Workstation nextStation = workOrder.getNextStations().get(0);
-            log.info("Next station [name={}]", nextStation.getName());
-
-            // Create list of workstations following after next one.
-            // Remove next workstation form list all following workstations
-            List<Workstation> nextStations = workOrder.getNextStations().stream()
-                    .filter(station -> !nextStation.equals(station)).collect(Collectors.toList());
-
-            // Call next workstation
-            response.addAll(workstationService.createWorkOrder(uriResolver.getUri(nextStation),
-                    new WorkOrder().workstationName(nextStation.getName()).parameters(nextStation.getParameters())
-                    .nextStations(nextStations)));
-        }
+        response.addAll(followingStationsResponse);
 
         return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    /**
+     * Return first workstation from list of following workstations.
+     */
+    private Optional<Workstation> nextWorkstation(WorkOrder workOrder) {
+        return workOrder.getFollowingStations().stream().findFirst();
+    }
+
+    /**
+     * Create list of workstations following after first one. Remove the first
+     * workstation form list all following workstations
+     */
+    private List<Workstation> prepareFollowingWorkstations(Workstation nextStation, WorkOrder workOrder) {
+        return workOrder.getFollowingStations().stream().filter(station -> !nextStation.equals(station))
+                .collect(Collectors.toList());
     }
 
 }

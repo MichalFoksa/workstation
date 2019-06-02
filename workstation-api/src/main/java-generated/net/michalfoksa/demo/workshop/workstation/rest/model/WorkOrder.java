@@ -27,9 +27,9 @@ public class WorkOrder   {
   @Valid
   private Map<String, String> parameters = new HashMap<>();
 
-  @JsonProperty("nextStations")
+  @JsonProperty("followingStations")
   @Valid
-  private List<Workstation> nextStations = new ArrayList<>();
+  private List<Workstation> followingStations = new ArrayList<>();
 
   public WorkOrder workstationName(String workstationName) {
     this.workstationName = workstationName;
@@ -78,31 +78,31 @@ public class WorkOrder   {
     this.parameters = parameters;
   }
 
-  public WorkOrder nextStations(List<Workstation> nextStations) {
-    this.nextStations = nextStations;
+  public WorkOrder followingStations(List<Workstation> followingStations) {
+    this.followingStations = followingStations;
     return this;
   }
 
-  public WorkOrder addNextStationsItem(Workstation nextStationsItem) {
-    this.nextStations.add(nextStationsItem);
+  public WorkOrder addFollowingStationsItem(Workstation followingStationsItem) {
+    this.followingStations.add(followingStationsItem);
     return this;
   }
 
   /**
-   * Get nextStations
-   * @return nextStations
+   * List of Workstation to be called in sequence.
+   * @return followingStations
   */
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(required = true, value = "List of Workstation to be called in sequence.")
   @NotNull
 
   @Valid
 
-  public List<Workstation> getNextStations() {
-    return nextStations;
+  public List<Workstation> getFollowingStations() {
+    return followingStations;
   }
 
-  public void setNextStations(List<Workstation> nextStations) {
-    this.nextStations = nextStations;
+  public void setFollowingStations(List<Workstation> followingStations) {
+    this.followingStations = followingStations;
   }
 
 
@@ -117,12 +117,12 @@ public class WorkOrder   {
     WorkOrder workOrder = (WorkOrder) o;
     return Objects.equals(this.workstationName, workOrder.workstationName) &&
         Objects.equals(this.parameters, workOrder.parameters) &&
-        Objects.equals(this.nextStations, workOrder.nextStations);
+        Objects.equals(this.followingStations, workOrder.followingStations);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(workstationName, parameters, nextStations);
+    return Objects.hash(workstationName, parameters, followingStations);
   }
 
   @Override
@@ -132,7 +132,7 @@ public class WorkOrder   {
     
     sb.append("    workstationName: ").append(toIndentedString(workstationName)).append("\n");
     sb.append("    parameters: ").append(toIndentedString(parameters)).append("\n");
-    sb.append("    nextStations: ").append(toIndentedString(nextStations)).append("\n");
+    sb.append("    followingStations: ").append(toIndentedString(followingStations)).append("\n");
     sb.append("}");
     return sb.toString();
   }

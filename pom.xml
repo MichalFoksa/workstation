@@ -13,7 +13,7 @@
 
 	<groupId>net.michalfoksa.demo.workshop</groupId>
 	<artifactId>workstation</artifactId>
-	<version>${revision}</version>
+	<version>0.0.21</version>
 	<description>Demo project for Spring Boot</description>
 	<packaging>pom</packaging>
 

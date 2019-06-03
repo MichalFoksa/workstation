@@ -30,11 +30,11 @@
 			<artifactId>validation-api</artifactId>
 		</dependency>
 
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <scope>provided</scope>
-        </dependency>		
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -110,7 +110,10 @@
 				<configuration>
 					<filesets>
 						<fileset>
-							<directory>${project.basedir}/src/main/java-generated/**</directory>
+							<directory>${project.basedir}/src/main/java-generated</directory>
+							<includes>
+								<include>**/*</include>
+							</includes>
 						</fileset>
 					</filesets>
 				</configuration>
